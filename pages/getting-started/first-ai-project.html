@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30分钟用AI做出第一个网页 - AI编程指南</title>
+<meta name="description" content="手把手教你用AI编程工具在30分钟内创建并部署一个个人网页，从零开始，无需任何编程经验。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+
+<div id="reading-progress"></div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 dark:text-indigo-400 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a> &gt; 30分钟用AI做出第一个网页
+</div>
+
+<!-- Main Content Area -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<!-- Article Content (2/3) -->
+<article class="lg:w-2/3">
+<!-- Header -->
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">30分钟用AI做出第一个网页</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 15分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-400">入门</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">实战</span>
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">网页</span>
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">入门项目</span>
+</div>
+</div>
+
+<!-- Article Body -->
+<div class="article-content max-w-none">
+
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-6">本文会带你从零开始，用AI编程工具在30分钟内完成一个个人网页的创建和部署。你不需要任何编程经验，只需要一个浏览器和一颗好奇心。</p>
+
+<h2>准备工作（2分钟）</h2>
+<p>在开始之前，请确保你已经准备好了以下东西：</p>
+<ul>
+<li><strong>一个浏览器</strong>：Chrome、Edge或Firefox均可</li>
+<li><strong>一个AI编程工具</strong>：推荐使用ChatGPT或Claude的Web版，无需安装任何软件</li>
+<li><strong>一个代码编辑器</strong>：推荐VS Code（免费），也可以使用记事本</li>
+<li><strong>（可选）一个GitHub账号</strong>：用于免费部署网页</li>
+</ul>
+<p>如果你还没有选择AI工具，建议先阅读我们的<a href="/pages/getting-started/tool-selection-guide.html" class="text-indigo-500 hover:text-indigo-600">工具选购指南</a>。本文将以ChatGPT为例进行演示，但任何AI编程工具都能完成同样的任务。</p>
+
+<h2>第一步：用AI生成HTML结构（5分钟）</h2>
+<p>首先，我们需要确定个人网页的内容。一个典型的个人网页包含：</p>
+<ul>
+<li>头部：姓名、职业标语</li>
+<li>关于我：简短的自我介绍</li>
+<li>技能：你掌握的技术或技能</li>
+<li>项目：你完成的项目展示</li>
+<li>联系：联系方式或社交链接</li>
+<li>页脚：版权信息</li>
+</ul>
+<p>打开你的AI工具，输入以下提示词：</p>
+
+<div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl text-sm text-gray-600 dark:text-gray-400 mb-4">
+<strong>💬 给你的AI发送这段提示词：</strong><br><br>
+"请帮我生成一个个人简历网页的完整HTML代码。要求：<br>
+1. 包含头部（姓名、职业标语）、关于我、技能、项目展示、联系方式五个部分<br>
+2. 使用现代化设计，支持响应式布局<br>
+3. 使用Flexbox或Grid布局<br>
+4. 配色方案使用蓝色系<br>
+5. 字体使用系统默认字体<br>
+6. 在项目部分，帮我放3个占位项目卡片<br>
+7. 联系方式包含邮箱、GitHub和LinkedIn链接"
+</div>
+
+<p>AI会为你生成一个完整的HTML文件。它看起来可能会是这样的：</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;张三 - 个人主页&lt;/title&gt;
+    &lt;style&gt;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        /* Sections */
+        section { padding: 60px 20px; }
+        section:nth-child(even) { background: #f8fafc; }
+        section h2 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            color: #1e293b;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .skill-card:hover { transform: translateY(-5px); }
+        .skill-card .icon { font-size: 2em; margin-bottom: 10px; }
+        .skill-card h3 { font-size: 1em; color: #475569; }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); }
+        .project-card img {
+            width: 100%; height: 200px;
+            object-fit: cover;
+            background: #e2e8f0;
+        }
+        .project-card .content { padding: 20px; }
+        .project-card h3 { margin-bottom: 8px; color: #1e293b; }
+        .project-card p { color: #64748b; font-size: 0.95em; }
+
+        /* Contact */
+        #contact {
+            text-align: center;
+        }
+        .social-links { display: flex; justify-content: center; gap: 20px; }
+        .social-links a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .social-links a:hover { background: #1d4ed8; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e293b;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 60px 20px; }
+            header h1 { font-size: 1.8em; }
+            section { padding: 40px 20px; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;张三&lt;/h1&gt;
+        &lt;p&gt;全栈开发者 / AI 技术爱好者&lt;/p&gt;
+    &lt;/header&gt;
+
+    &lt;section id="about"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;关于我&lt;/h2&gt;
+            &lt;p style="text-align: center; max-width: 600px; margin: 0 auto;"&gt;
+                你好！我是一名热爱技术的全栈开发者，专注于 Web 开发和 AI 应用。
+                拥有 5 年开发经验，擅长 React、Node.js 和 Python。
+            &lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="skills"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;我的技能&lt;/h2&gt;
+            &lt;div class="skills-grid"&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#128187;&lt;/div&gt;&lt;h3&gt;HTML/CSS&lt;/h3&gt;&lt;/div&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#128736;&lt;/div&gt;&lt;h3&gt;JavaScript&lt;/h3&gt;&lt;/div&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#128200;&lt;/div&gt;&lt;h3&gt;React&lt;/h3&gt;&lt;/div&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#128421;&lt;/div&gt;&lt;h3&gt;Node.js&lt;/h3&gt;&lt;/div&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#128013;&lt;/div&gt;&lt;h3&gt;Python&lt;/h3&gt;&lt;/div&gt;
+                &lt;div class="skill-card"&gt;&lt;div class="icon"&gt;&amp;#129302;&lt;/div&gt;&lt;h3&gt;AI/ML&lt;/h3&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="projects"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;我的项目&lt;/h2&gt;
+            &lt;div class="projects-grid"&gt;
+                &lt;div class="project-card"&gt;
+                    &lt;div class="content"&gt;
+                        &lt;h3&gt;智能待办管理&lt;/h3&gt;
+                        &lt;p&gt;基于 AI 的智能待办管理应用，支持自然语言创建任务和智能优先级排序。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="project-card"&gt;
+                    &lt;div class="content"&gt;
+                        &lt;h3&gt;天气仪表盘&lt;/h3&gt;
+                        &lt;p&gt;实时天气数据可视化仪表盘，支持多城市切换和历史数据分析。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="project-card"&gt;
+                    &lt;div class="content"&gt;
+                        &lt;h3&gt;博客平台&lt;/h3&gt;
+                        &lt;p&gt;支持 Markdown 的轻量级博客平台，集成 AI 写作助手功能。&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contact"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;联系我&lt;/h2&gt;
+            &lt;div class="social-links"&gt;
+                &lt;a href="mailto:zhangsan@example.com"&gt;邮箱&lt;/a&gt;
+                &lt;a href="https://github.com"&gt;GitHub&lt;/a&gt;
+                &lt;a href="https://linkedin.com"&gt;LinkedIn&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2026 张三. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>将AI生成的代码复制到VS Code（或其他编辑器）中，保存为 <code>index.html</code>。然后用浏览器打开这个文件——你已经有了一个可运行的网页！</p>
+
+<h2>第二步：用AI美化和定制（10分钟）</h2>
+<p>现在的页面虽然可用，但可能还不够个性化。让我们用AI来进一步美化它。</p>
+
+<h3>2.1 更换配色方案</h3>
+<p>给AI发送：<em>"把我个人网页的配色方案从蓝色改成绿色渐变风格"</em></p>
+<p>AI会帮你更新CSS中的颜色值。你也可以试试"暗色模式"、"毛玻璃效果"或"霓虹风格"等不同风格。</p>
+
+<h3>2.2 添加头像和图片</h3>
+<p>给AI发送：<em>"在我的个人网页头部添加一个圆形头像占位，使用 placeholder 图片服务"</em></p>
+<p>AI可能会在header中添加类似这样的代码：</p>
+
+<pre><code class="language-html">&lt;img src="https://api.dicebear.com/7.x/avataaars/svg?seed=zhangsan"
+     alt="头像" class="avatar"&gt;</code></pre>
+
+<p>并添加对应的CSS样式：</p>
+
+<pre><code class="language-css">.avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}</code></pre>
+
+<h3>2.3 添加动画效果</h3>
+<p>给AI发送：<em>"为我的个人网页添加滚动进入动画，当元素进入视口时淡入上滑"</em></p>
+<p>AI会为你生成CSS动画和必要的JavaScript代码。这些微交互能让页面看起来更加专业。</p>
+
+<h2>第三步：用AI添加交互功能（8分钟）</h2>
+<p>现在让页面"动起来"。我们可以添加一些JavaScript交互：</p>
+
+<h3>3.1 平滑滚动导航</h3>
+<p>给AI发送：<em>"为我的个人网页添加平滑滚动效果，点击导航链接时平滑滚动到对应区域"</em></p>
+
+<pre><code class="language-javascript">// AI生成的平滑滚动代码
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});</code></pre>
+
+<h3>3.2 添加导航栏吸顶效果</h3>
+<p>给AI发送：<em>"为我的个人网页添加一个固定在顶部的导航栏，向下滚动时背景变成半透明"</em></p>
+
+<pre><code class="language-javascript">// AI生成的吸顶导航代码
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 100) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+});</code></pre>
+
+<pre><code class="language-css">/* 对应的CSS */
+nav {
+    position: fixed;
+    top: 0; width: 100%;
+    background: transparent;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+nav.scrolled {
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}</code></pre>
+
+<h3>3.3 添加返回顶部按钮</h3>
+<p>给AI发送：<em>"为我的个人网页添加一个返回顶部按钮，滚动超过300px时显示"</em></p>
+
+<p>AI会生成一个固定在右下角的按钮，点击后平滑回到页面顶部。这是一个提升用户体验的小细节。</p>
+
+<h2>第四步：部署上线（5分钟）</h2>
+<p>网页做好了，现在让全世界都能访问它！最简单的方式是使用GitHub Pages免费托管：</p>
+
+<ol>
+<li><strong>创建GitHub仓库</strong>：登录GitHub，点击"New repository"，命名为 <code>my-page</code></li>
+<li><strong>上传文件</strong>：将你的 <code>index.html</code> 文件上传到仓库（可以直接在GitHub网页上操作：点击"Add file" - "Upload files"）</li>
+<li><strong>启用GitHub Pages</strong>：进入仓库的 Settings - Pages，在"Branch"下拉菜单中选择 <code>main</code>，点击"Save"</li>
+<li><strong>等待部署</strong>：大约1-2分钟后，你的网页就会出现在 <code>https://你的用户名.github.io/my-page/</code></li>
+</ol>
+
+<p>如果你想使用自己的域名，也可以在GitHub Pages的设置中配置自定义域名。</p>
+
+<p><strong>其他免费部署方案：</strong></p>
+<ul>
+<li><strong>Vercel</strong>：连接GitHub仓库自动部署，支持自定义域名，速度更快</li>
+<li><strong>Netlify</strong>：支持拖拽上传，操作最简单</li>
+<li><strong>Cloudflare Pages</strong>：全球CDN加速，免费额度充足</li>
+</ul>
+
+<h2>完整时间线回顾</h2>
+
+<div class="overflow-x-auto my-8">
+<table class="w-full border-collapse bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm">
+<thead>
+<tr class="bg-gray-100 dark:bg-gray-700">
+<th class="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600">步骤</th>
+<th class="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600">用时</th>
+<th class="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600">做了什么</th>
+<th class="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600">AI的角色</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+<tr>
+<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">准备工作</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">2分钟</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">注册账号、打开编辑器</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">-</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">生成HTML</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">5分钟</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">写提示词、复制代码、保存文件</td>
+<td class="px-4 py-3 text-sm text-indigo-600 dark:text-indigo-400">生成完整HTML+CSS</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">美化定制</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">10分钟</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">改颜色、加头像、加动画</td>
+<td class="px-4 py-3 text-sm text-indigo-600 dark:text-indigo-400">提供CSS/HTML修改建议</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">添加交互</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">8分钟</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">加平滑滚动、吸顶导航、返回顶部</td>
+<td class="px-4 py-3 text-sm text-indigo-600 dark:text-indigo-400">生成JavaScript代码</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">部署上线</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">5分钟</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">创建仓库、上传文件、启用Pages</td>
+<td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">提供部署指导</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2>进阶方向</h2>
+<p>如果你完成了以上步骤并想继续探索，这里有一些进阶方向：</p>
+<ul>
+<li><strong>添加博客功能</strong>：让AI帮你集成一个简单的博客系统，支持文章列表和详情页</li>
+<li><strong>接入API</strong>：让AI教你如何调用公开API（如天气API、GitHub API）在页面上展示动态数据</li>
+<li><strong>使用框架</strong>：让AI帮你把纯HTML页面改造成React或Vue项目</li>
+<li><strong>添加暗色模式</strong>：让AI实现一键切换亮色/暗色主题的功能</li>
+<li><strong>表单处理</strong>：让AI帮你添加联系表单，并接入表单处理服务</li>
+</ul>
+
+</div>
+
+<!-- Summary -->
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">通过本教程，你在30分钟内完成了一个个人网页从创建到部署的全流程。关键要点：用AI生成基础HTML结构，通过多次对话迭代美化和添加交互功能，最后使用GitHub Pages免费部署。记住，AI是你的助手而非替代者——每次修改时理解AI做了什么，这样你才能不断进步。下一步可以尝试为页面添加博客功能或接入API，继续拓展你的技能边界。</p>
+</div>
+
+<!-- Navigation -->
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/getting-started/faq.html" class="text-indigo-500 hover:text-indigo-600">&larr; 常见问题FAQ</a>
+<a href="/pages/getting-started/" class="text-indigo-500 hover:text-indigo-600">返回新手入门 &rarr;</a>
+</div>
+</article>
+
+<!-- Sidebar (1/3) -->
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<ul class="space-y-2 text-sm">
+<li><a href="#准备工作2分钟" class="text-indigo-500 hover:text-indigo-600 block py-1">准备工作</a></li>
+<li><a href="#第一步用ai生成html结构5分钟" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">用AI生成HTML结构</a></li>
+<li><a href="#第二步用ai美化和定制10分钟" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">用AI美化和定制</a></li>
+<li><a href="#第三步用ai添加交互功能8分钟" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">用AI添加交互功能</a></li>
+<li><a href="#第四步部署上线5分钟" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">部署上线</a></li>
+<li><a href="#完整时间线回顾" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">完整时间线回顾</a></li>
+<li><a href="#进阶方向" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">进阶方向</a></li>
+</ul>
+</div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/getting-started/what-is-ai-coding.html" class="block p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<div class="font-medium text-gray-900 dark:text-white text-sm">AI编程是什么？能力边界与入门指南</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">全面了解AI编程的能力边界</div>
+</a>
+<a href="/pages/getting-started/tool-selection-guide.html" class="block p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<div class="font-medium text-gray-900 dark:text-white text-sm">2026年AI编程工具选购指南</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">四大主流工具横向对比</div>
+</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div>
+</div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

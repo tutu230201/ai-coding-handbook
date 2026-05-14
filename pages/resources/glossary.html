@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>术语表 - AI编程指南</title><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/custom.css"><script src="/data/search-index.js"></script><script src="/js/search.js"></script></head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16"><a href="/" class="flex items-center space-x-2"><svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span></a><div class="hidden md:flex items-center space-x-1"><a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a><a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a><a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a><a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a><a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a><a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">资源</a></div></div></div></nav>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">首页 &gt; 资源 &gt; 术语表</div>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">📖 AI编程术语表</h1>
+
+    <div class="space-y-3">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">AI编程</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">利用人工智能技术辅助或自动完成代码编写、调试、重构等软件开发任务的过程。主流工具包括Claude Code、Cursor、GitHub Copilot等。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">Prompt / 提示词</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">用户向AI模型输入的指令或问题。在编程场景中，好的Prompt能够显著提升AI生成代码的质量和准确性。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">Token</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AI模型处理文本的基本单位。在中文场景下，一个Token约等于1-2个汉字。模型的上下文窗口大小以Token数衡量。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">上下文窗口 (Context Window)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AI模型一次能处理的最大Token数量。较大的上下文窗口允许模型理解更多的代码上下文。Claude 4.7支持200K Token的上下文。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">幻觉 (Hallucination)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AI模型生成看似合理但实际错误的内容。在编程中表现为生成不存在的API、错误的逻辑或虚构的库函数。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">RAG (检索增强生成)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">通过检索外部知识库来增强AI生成内容的技术。在编程场景中，可以让AI基于项目代码库或文档来回答问题。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">代码补全 (Code Completion)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AI根据当前代码上下文，实时预测并建议下一步要写的代码。GitHub Copilot的Tab补全是典型应用。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">AI-First IDE</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">以AI为核心设计理念的集成开发环境，AI功能深度集成在编辑器的每个交互中。Cursor和Windsurf是代表产品。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">Prompt工程 (Prompt Engineering)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">系统性地设计和优化提示词的方法论。好的Prompt工程能显著提升AI输出的质量和可靠性。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">多模态 (Multimodal)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AI模型能够理解和处理多种类型的数据（文本、图片、代码等）。Claude和GPT-4o均支持多模态输入。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">Agent / 智能体</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">能够自主规划和执行任务的AI系统。在编程领域，AI Agent可以独立完成需求分析、代码编写、测试和部署等步骤。</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-gray-900 dark:text-white">Fine-tuning / 微调</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">在预训练模型基础上，使用特定领域的数据进一步训练，使模型在特定任务上表现更好。</p>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-12"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></footer>
+<script src="/js/main.js"></script>
+</body>
+</html>

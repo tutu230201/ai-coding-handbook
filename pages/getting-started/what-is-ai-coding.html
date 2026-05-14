@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI编程是什么？能力边界与入门指南 - AI编程指南</title>
+<meta name="description" content="全面了解AI编程的能力边界、主流工具概览，以及如何开始使用AI辅助编程。适合编程新手和想了解AI编程的开发者。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+
+<div id="reading-progress"></div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 dark:text-indigo-400 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a> &gt; AI编程是什么？能力边界与入门指南
+</div>
+
+<!-- Main Content Area -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<!-- Article Content (2/3) -->
+<article class="lg:w-2/3">
+<!-- Header -->
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">AI编程是什么？能力边界与入门指南</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 8分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-400">入门</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">AI编程</span>
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">入门</span>
+<span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">概述</span>
+</div>
+</div>
+
+<!-- Article Body -->
+<div class="article-content max-w-none">
+
+<h2>什么是AI编程？</h2>
+<p>AI编程，简单来说，就是利用人工智能（特别是大语言模型）来辅助完成软件开发任务。不同于传统的"搜索引擎 + 复制粘贴"模式，AI编程工具能够理解上下文、生成完整代码、解释复杂逻辑，甚至帮你调试错误。</p>
+<p>从2022年底ChatGPT发布以来，AI编程经历了飞速发展。到2026年的今天，AI编程已经成为软件开发不可或缺的一部分。根据Stack Overflow 2025年的开发者调查，超过80%的开发者已经在日常工作中使用某种形式的AI编程工具。</p>
+
+<h3>AI编程的工作原理</h3>
+<p>现代的AI编程工具基于大型语言模型（LLM），这些模型通过海量的代码和文本数据训练而成。当你向AI提出编程问题或需求时，它会：</p>
+<ol>
+<li><strong>理解上下文</strong>：分析你提供的代码片段、注释和问题描述</li>
+<li><strong>模式匹配</strong>：基于训练数据中的代码模式，生成最可能的回答</li>
+<li><strong>逐token生成</strong>：自回归地生成代码，每一步都考虑之前生成的内容</li>
+<li><strong>持续优化</strong>：根据你的反馈不断调整输出</li>
+</ol>
+
+<p>下面是一个简单的例子，展示AI如何将一个自然语言描述转化为Python代码：</p>
+
+<pre><code class="language-python"># 用户输入："写一个函数，读取CSV文件并返回每列的平均值"
+
+import csv
+from typing import List, Dict, Union
+
+def calculate_column_averages(file_path: str) -> Dict[str, float]:
+    """
+    Read a CSV file and return the average of each numeric column.
+
+    Args:
+        file_path: Path to the CSV file
+
+    Returns:
+        Dictionary mapping column names to their average values
+    """
+    averages = {}
+    column_data: Dict[str, List[Union[float, str]]] = {}
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            for col, value in row.items():
+                if col not in column_data:
+                    column_data[col] = []
+                # Try to convert to float for numeric columns
+                try:
+                    column_data[col].append(float(value))
+                except ValueError:
+                    pass  # Skip non-numeric values
+
+    for col, values in column_data.items():
+        if values:  # Only calculate if there are numeric values
+            averages[col] = sum(values) / len(values)
+
+    return averages</code></pre>
+
+<h2>AI能做什么：五大核心能力</h2>
+<p>AI编程工具的能力范围已经远远超过简单的代码补全。以下是目前AI编程的核心能力：</p>
+
+<h3>1. 代码生成</h3>
+<p>从零开始根据需求生成完整函数、组件甚至整个文件。无论是前端组件、后端API，还是数据脚本，AI都能快速生成可运行的代码。研究表明，AI代码生成可以将开发效率提升2-3倍。</p>
+
+<h3>2. 代码解释与学习</h3>
+<p>遇到看不懂的代码？让AI来解释。这是初学者最大的福音——你可以把任何代码段粘贴给AI，让它用通俗的语言解释每一行做了什么。</p>
+
+<h3>3. 调试与排错</h3>
+<p>把错误信息和相关代码发给AI，它通常能快速定位问题根因并给出修复方案。这在处理晦涩的编译错误或运行时异常时特别有帮助。</p>
+
+<h3>4. 代码重构</h3>
+<p>AI可以帮助优化现有代码的结构和性能。例如，将面条式代码重构为模块化设计，或者优化算法复杂度。</p>
+
+<h3>5. 测试编写</h3>
+<p>编写测试是开发中最耗时的环节之一。AI可以根据你的代码自动生成单元测试和集成测试：</p>
+
+<pre><code class="language-python"># AI自动生成的单元测试示例
+import pytest
+from your_module import calculate_column_averages
+
+def test_calculate_column_averages_basic():
+    """Test with a simple CSV containing numeric values."""
+    # Arrange
+    import tempfile
+    import os
+
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+        f.write("name,age,salary\n")
+        f.write("Alice,30,70000\n")
+        f.write("Bob,25,65000\n")
+        f.write("Charlie,35,80000\n")
+        temp_path = f.name
+
+    # Act
+    result = calculate_column_averages(temp_path)
+
+    # Assert
+    assert result["age"] == pytest.approx(30.0)
+    assert result["salary"] == pytest.approx(71666.67, rel=1e-2)
+
+    # Cleanup
+    os.unlink(temp_path)
+
+
+def test_calculate_column_averages_empty_file():
+    """Test with a CSV that has no numeric columns."""
+    import tempfile
+    import os
+
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+        f.write("name,email\n")
+        f.write("Alice,alice@example.com\n")
+        temp_path = f.name
+
+    result = calculate_column_averages(temp_path)
+    assert result == {}  # No numeric columns
+
+    os.unlink(temp_path)</code></pre>
+
+<h2>AI不能做什么：能力边界</h2>
+<p>了解AI的局限性同样重要。以下是AI编程目前的主要短板：</p>
+
+<ul>
+<li><strong>上下文窗口限制</strong>：大多数AI模型一次只能处理有限量的代码（通常为2万到20万个token）。大型项目中的跨文件理解和全局重构仍是挑战。</li>
+<li><strong>幻觉问题</strong>：AI有时会生成看似合理但实际上错误的代码，包括调用不存在的API、使用错误的参数，或者产生有逻辑漏洞的算法。</li>
+<li><strong>复杂架构设计</strong>：对于需要深度业务理解的大型系统架构设计，AI仍然难以胜任。高层次的架构决策、技术选型和系统设计仍需要人类工程师的判断。</li>
+<li><strong>安全与合规</strong>：AI生成的代码可能存在安全隐患（如SQL注入、XSS攻击）或违反许可证要求。安全审查依然是开发流程的必要环节。</li>
+<li><strong>维护与演进</strong>：AI没有"记忆"，它无法像人类开发者一样长期维护一个项目的演进历史，理解为什么某些决策被做出。</li>
+</ul>
+
+<h2>主流AI编程工具概览</h2>
+<p>截至2026年，市场上主流的AI编程工具可以分为以下几类：</p>
+
+<h3>Claude Code</h3>
+<p>Anthropic推出的终端原生AI编程助手，理解能力强，支持全项目上下文处理。特别擅长复杂推理、代码分析和大型重构任务。</p>
+
+<h3>GitHub Copilot</h3>
+<p>微软和GitHub推出的AI编程助手，深度集成VS Code和JetBrains IDE。以其快速的代码补全和编辑器内无缝体验著称。</p>
+
+<h3>Cursor</h3>
+<p>基于VS Code的AI-first编辑器，内置了强大的AI对话和代码编辑功能。支持多文件编辑、智能重构和项目级理解。</p>
+
+<h3>ChatGPT / Claude</h3>
+<p>通用对话式AI，虽然不专门针对编程，但在代码生成、解释和调试方面表现出色。适合阶段性的代码咨询和学习。</p>
+
+<h2>如何开始使用AI编程</h2>
+<p>对新手来说，开始使用AI编程的路径非常清晰：</p>
+
+<ol>
+<li><strong>选择一个工具</strong>：如果你是VS Code用户，可以从GitHub Copilot或Cursor开始。如果偏好终端操作，试试Claude Code。</li>
+<li><strong>从简单任务开始</strong>：先让AI帮你写一些独立的小函数、正则表达式或者数据转换脚本。</li>
+<li><strong>学会提问</strong>：AI的输出质量很大程度上取决于你的提问质量。提供清晰的上下文、具体的要求和约束条件。</li>
+<li><strong>验证输出</strong>：永远不要盲目信任AI生成的代码。理解它做了什么，然后测试、测试、再测试。</li>
+<li><strong>迭代优化</strong>：让AI帮你重构和优化代码，这是一个持续学习的过程。</li>
+</ol>
+
+<p>下面的JavaScript代码展示了AI如何根据描述生成一个实用的工具函数：</p>
+
+<pre><code class="language-javascript">// 用户描述："写一个防抖函数，支持立即执行选项"
+
+/**
+ * Creates a debounced function that delays invoking func
+ * until after `wait` milliseconds have elapsed since the
+ * last time the debounced function was invoked.
+ *
+ * @param {Function} func - The function to debounce
+ * @param {number} wait - Milliseconds to wait
+ * @param {boolean} immediate - If true, trigger on leading edge
+ * @returns {Function} Debounced function with .cancel() method
+ */
+function debounce(func, wait, immediate = false) {
+  let timeoutId = null;
+  let result = undefined;
+
+  const debounced = function(...args) {
+    const context = this;
+
+    const later = () => {
+      timeoutId = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+      }
+    };
+
+    const callNow = immediate && timeoutId === null;
+
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(later, wait);
+
+    if (callNow) {
+      result = func.apply(context, args);
+    }
+
+    return result;
+  };
+
+  debounced.cancel = function() {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+
+  debounced.flush = function() {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+      const context = this;
+      const args = debounced.arguments || [];
+      result = func.apply(context, args);
+      timeoutId = null;
+    }
+    return result;
+  };
+
+  return debounced;
+}
+
+// 使用示例
+const handleSearch = debounce(async (query) => {
+  const results = await fetch(`/api/search?q=${query}`);
+  // 处理搜索结果...
+}, 300, false);</code></pre>
+
+</div>
+
+<!-- Summary -->
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">AI编程是通过大语言模型辅助软件开发的技术，它能大幅提升代码生成、调试、重构和测试的效率。但AI并非万能——它在复杂架构设计、安全合规和长期维护方面仍有明显局限。对新手来说，选择合适工具、学会正确提问并保持批判性思维，是高效使用AI编程的关键。下一篇文章将帮你对比主流AI编程工具，找到最适合你的那一款。</p>
+</div>
+
+<!-- Navigation -->
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/getting-started/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回新手入门</a>
+<a href="/pages/getting-started/tool-selection-guide.html" class="text-indigo-500 hover:text-indigo-600">工具选购指南 &rarr;</a>
+</div>
+</article>
+
+<!-- Sidebar (1/3) -->
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<ul class="space-y-2 text-sm">
+<li><a href="#什么是ai编程" class="text-indigo-500 hover:text-indigo-600 block py-1">什么是AI编程</a></li>
+<li><a href="#ai能做什么五大核心能力" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">AI能做什么：五大核心能力</a></li>
+<li><a href="#ai不能做什么能力边界" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">AI不能做什么：能力边界</a></li>
+<li><a href="#主流ai编程工具概览" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">主流AI编程工具概览</a></li>
+<li><a href="#如何开始使用ai编程" class="text-gray-600 dark:text-gray-400 hover:text-indigo-500 block py-1">如何开始使用AI编程</a></li>
+</ul>
+</div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/getting-started/tool-selection-guide.html" class="block p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<div class="font-medium text-gray-900 dark:text-white text-sm">2026年AI编程工具选购指南</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">四大主流AI编程工具横向对比</div>
+</a>
+<a href="/pages/getting-started/first-ai-project.html" class="block p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<div class="font-medium text-gray-900 dark:text-white text-sm">30分钟用AI做出第一个网页</div>
+<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">手把手教你创建个人网页</div>
+</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div>
+</div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

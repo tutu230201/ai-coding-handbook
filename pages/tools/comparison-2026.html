@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude vs Cursor vs Copilot 深度对比(2026) - AI编程指南</title>
+<meta name="description" content="从代码质量、开发体验、价格、适用场景等多个维度对Claude Code、Cursor、GitHub Copilot三大AI编程工具进行深度对比分析。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<div id="reading-progress"></div>
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a> &gt; Claude vs Cursor vs Copilot 深度对比(2026)
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Claude vs Cursor vs Copilot 深度对比(2026)</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 10分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">初级</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">对比</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Claude</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Cursor</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Copilot</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">2026</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<p>2026年，AI编程工具市场已经形成了 Claude Code、Cursor 和 GitHub Copilot 三足鼎立的格局。每个工具都有其独特的设计理念和核心优势，选择哪个工具取决于你的具体需求和使用场景。本文将从多个维度对这三款工具进行深度对比，帮助你做出最适合自己的选择。</p>
+
+<h2 id="overview">三款工具概览</h2>
+<p>在深入对比之前，先快速了解三款工具的基本定位：</p>
+<ul>
+<li><strong>Claude Code</strong>：Anthropic 推出的命令行原生AI编程助手，不绑定任何编辑器，通过终端操作，适合追求极致灵活性的开发者</li>
+<li><strong>Cursor</strong>：基于 VS Code 的 AI 原生编辑器，将 AI 深度集成在编辑器中，适合希望获得一站式 AI 开发体验的用户</li>
+<li><strong>GitHub Copilot</strong>：微软/GitHub 推出的 AI 编程助手，以 IDE 插件形式存在，拥有最大的用户基数和完善的生态整合</li>
+</ul>
+
+<h2 id="comparison-table">核心功能对比表</h2>
+<div class="table-wrapper">
+<table class="min-w-full">
+<thead>
+<tr>
+<th>对比维度</th>
+<th>Claude Code</th>
+<th>Cursor</th>
+<th>GitHub Copilot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>产品形态</strong></td>
+<td>CLI 终端工具</td>
+<td>独立编辑器（基于VS Code）</td>
+<td>IDE 插件</td>
+</tr>
+<tr>
+<td><strong>编辑器绑定</strong></td>
+<td>无（任何编辑器）</td>
+<td>内置编辑器</td>
+<td>VS Code、JetBrains、Neovim 等</td>
+</tr>
+<tr>
+<td><strong>代码补全</strong></td>
+<td>无实时补全（对话式）</td>
+<td>AI Tab 补全</td>
+<td>AI 实时补全（核心功能）</td>
+</tr>
+<tr>
+<td><strong>多文件编辑</strong></td>
+<td>优秀（原生支持）</td>
+<td>优秀（Composer模式）</td>
+<td>一般（Copilot Chat有限支持）</td>
+</tr>
+<tr>
+<td><strong>项目理解</strong></td>
+<td>深度（全仓库扫描）</td>
+<td>良好（@codebase引用）</td>
+<td>基础（当前打开文件为主）</td>
+</tr>
+<tr>
+<td><strong>对话能力</strong></td>
+<td>终端对话</td>
+<td>侧边栏/内联对话</td>
+<td>侧边栏/内联对话</td>
+</tr>
+<tr>
+<td><strong>AI模型</strong></td>
+<td>Claude 4.7（默认）</td>
+<td>多模型支持（Claude/GPT/Gemini）</td>
+<td>OpenAI Codex / GPT-4o</td>
+</tr>
+<tr>
+<td><strong>上下文窗口</strong></td>
+<td>200K token</td>
+<td>取决于所选模型</td>
+<td>128K token</td>
+</tr>
+<tr>
+<td><strong>Git集成</strong></td>
+<td>优秀（原生Git操作）</td>
+<td>良好（基于VS Code Git）</td>
+<td>良好（GitHub整合）</td>
+</tr>
+<tr>
+<td><strong>自定义规则</strong></td>
+<td>.claude/system-prompt</td>
+<td>.cursorrules</td>
+<td>.github/copilot-instructions.md</td>
+</tr>
+<tr>
+<td><strong>离线使用</strong></td>
+<td>不支持（需联网）</td>
+<td>部分支持（本地模型）</td>
+<td>不支持（需联网）</td>
+</tr>
+<tr>
+<td><strong>开源</strong></td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="detailed-analysis">详细维度分析</h2>
+
+<h3 id="code-quality">代码生成质量</h3>
+<p>在代码生成质量方面，Claude Code 凭借 Claude 4.7 模型的强大能力，在复杂逻辑推理、架构设计和大规模重构方面表现最为出色。它生成的代码通常结构更加清晰，错误处理更加完善。Cursor 因为支持多模型切换，用户可以根据任务类型选择最合适的模型，灵活度最高。Copilot 在短代码补全和样板代码生成方面表现最好，但在复杂任务上略逊一筹。</p>
+<p>总体排序：Claude Code > Cursor > Copilot（复杂任务）；Copilot > Cursor > Claude Code（简单补全）</p>
+
+<h3 id="dev-experience">开发体验</h3>
+<p>Cursor 在开发体验上得分最高。它作为一个完整的编辑器，提供了图形化的差异对比、即时预览和直观的设置界面。AI 功能的触发方式非常自然，几乎不需要改变已有的工作习惯。Copilot 的体验也不错，特别是对于已经使用 VS Code 的开发者来说，安装插件即可使用。Claude Code 的终端原生体验对某些开发者来说是最高效的，但学习曲线相对较陡，需要适应命令行交互方式。</p>
+<p>总体排序：Cursor > Copilot > Claude Code（新手友好度）；Claude Code > Cursor > Copilot（效率上限）</p>
+
+<h3 id="pricing">定价对比</h3>
+<div class="table-wrapper">
+<table class="min-w-full">
+<thead>
+<tr>
+<th>工具</th>
+<th>免费版</th>
+<th>个人付费版</th>
+<th>团队/企业版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>按 API 用量计费（有免费额度）</td>
+<td>$20/月（Pro订阅含API额度）</td>
+<td>$25/用户/月（Team）</td>
+</tr>
+<tr>
+<td><strong>Cursor</strong></td>
+<td>2000次补全/月 + 50次对话</td>
+<td>$20/月（无限补全+500次对话）</td>
+<td>$40/用户/月</td>
+</tr>
+<tr>
+<td><strong>GitHub Copilot</strong></td>
+<td>无免费版（2026年起）</td>
+<td>$10/月（个人版）</td>
+<td>$19/用户/月（企业版）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从价格角度来看，Copilot 个人版最便宜，适合预算有限的个人开发者。Cursor 的定价居中，但提供了更多的 AI 功能和更好的开发体验。Claude Code 采用 API 计费模式，对于轻度使用可能很便宜，但重度使用可能成本较高。</p>
+
+<h2 id="recommendation">按使用场景推荐</h2>
+<p>以下是根据不同使用场景的推荐建议：</p>
+<h3 id="beginner">AI编程新手</h3>
+<p><strong>推荐：Cursor</strong> — 完整的编辑器体验，图形化界面，AI功能直观易用。学习曲线最低，可以从基础的 Tab 补全开始，逐步探索更高级的功能。</p>
+<h3 id="vscode-user">VS Code 重度用户</h3>
+<p><strong>推荐：Copilot + Cursor</strong> — 如果你不想离开 VS Code 生态，Copilot 是最简单的选择。但建议至少尝试一下 Cursor，它的 AI 原生体验会让你眼前一亮。实际上，很多开发者选择同时使用两者。</p>
+<h3 id="vim-emacs">Vim/Emacs 用户</h3>
+<p><strong>推荐：Claude Code</strong> — 这是唯一不绑定编辑器的 AI 编程工具，终端原生设计与 Vim/Emacs 的工作流完美契合。你可以在熟悉的编辑环境中编写代码，需要 AI 帮助时切换到终端使用 Claude Code。</p>
+<h3 id="large-project">大型项目/团队协作</h3>
+<p><strong>推荐：Claude Code</strong> — 其项目级理解能力和多文件编辑能力在大规模项目中优势明显。配合良好的 .claude 配置，可以确保 AI 生成的代码符合团队的架构规范和编码标准。</p>
+<h3 id="full-stack">全栈开发</h3>
+<p><strong>推荐：Cursor</strong> — 多模型支持意味着你可以为前端任务选择 Claude 4.7，为后端任务选择 GPT-4o，灵活应对不同技术栈的需求。Composer 模式在处理全栈 feature 时尤为高效。</p>
+<h3 id="budget">预算敏感</h3>
+<p><strong>推荐：Copilot</strong> — $10/月的价格是三者中最具竞争力的。虽然功能相对基础，但对于日常编码来说已经足够。如果需求更复杂，可以按需额外使用 Claude Code。</p>
+
+<h2 id="verdict">最终结论</h2>
+<p>没有绝对"最好"的AI编程工具，只有最适合你工作流程的选择。2026年的AI编程工具市场已经足够成熟，三款工具各有所长：</p>
+<ul>
+<li>如果你追求极致的代码质量和项目理解，<strong>Claude Code</strong> 是不二之选</li>
+<li>如果你想要最流畅的 AI 编程体验，<strong>Cursor</strong> 是当前最佳选择</li>
+<li>如果你看重性价比和生态整合，<strong>GitHub Copilot</strong> 依然可靠</li>
+</ul>
+<p>值得一提的是，越来越多的开发者选择<strong>组合使用</strong>多个工具 — 例如日常编码使用 Cursor 或 Copilot，大规模重构时调用 Claude Code。这种"各取所长"的策略正在成为主流。</p>
+</div>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">本文从产品形态、代码质量、开发体验、定价等多个维度对 Claude Code、Cursor 和 GitHub Copilot 进行了全面对比。三款工具各有所长：Claude Code 擅长深度项目理解和复杂重构，Cursor 提供最流畅的 AI 原生编辑体验，Copilot 性价比最高且生态完善。选择哪个工具取决于你的具体需求，而组合使用正成为越来越多开发者的选择。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tools/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回工具评测</a>
+<a href="/pages/tools/open-source-tools.html" class="text-indigo-500 hover:text-indigo-600">开源AI编程工具方案一览 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h2 active" data-target="overview">三款工具概览</div>
+<div class="toc-item h2" data-target="comparison-table">核心功能对比表</div>
+<div class="toc-item h2" data-target="detailed-analysis">详细维度分析</div>
+<div class="toc-item h3" data-target="code-quality">代码生成质量</div>
+<div class="toc-item h3" data-target="dev-experience">开发体验</div>
+<div class="toc-item h3" data-target="pricing">定价对比</div>
+<div class="toc-item h2" data-target="recommendation">按使用场景推荐</div>
+<div class="toc-item h3" data-target="beginner">AI编程新手</div>
+<div class="toc-item h3" data-target="vscode-user">VS Code 重度用户</div>
+<div class="toc-item h3" data-target="vim-emacs">Vim/Emacs 用户</div>
+<div class="toc-item h3" data-target="large-project">大型项目/团队协作</div>
+<div class="toc-item h3" data-target="full-stack">全栈开发</div>
+<div class="toc-item h3" data-target="budget">预算敏感</div>
+<div class="toc-item h2" data-target="verdict">最终结论</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tools/claude-code-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Claude Code 完全指南</a>
+<a href="/pages/tools/cursor-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Cursor 从入门到精通</a>
+<a href="/pages/tools/copilot-tips.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">GitHub Copilot 你不知道的10个技巧</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

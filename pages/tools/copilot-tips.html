@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Copilot 你不知道的10个技巧 - AI编程指南</title>
+<meta name="description" content="深入挖掘GitHub Copilot的高级用法和隐藏技巧，涵盖提示词工程、上下文管理、自定义规则等，让你的编码效率翻倍。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<div id="reading-progress"></div>
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a> &gt; GitHub Copilot 你不知道的10个技巧
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">GitHub Copilot 你不知道的10个技巧</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 8分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">初级</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Copilot</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">技巧</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">效率</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<p>GitHub Copilot 已经成为了全球开发者最熟悉的AI编程助手之一。但大多数人只用了它最基础的代码补全功能，还有很多隐藏技巧能帮你把 Copilot 的效率发挥到极致。以下是10个你也许不知道的实用技巧。</p>
+
+<h3 id="tip-1">1. 用注释引导 Copilot 生成精确代码</h3>
+<p>很多人只是直接写代码等 Copilot 自动补全，但最有效的方式是先用注释描述你想要的逻辑。详细的注释可以作为高质量的提示词（prompt），引导 Copilot 理解你的意图。试着用自然语言写下函数的输入、输出和处理步骤，你会惊讶于 Copilot 给出的代码质量。</p>
+<pre><code class="language-javascript">// 不好的做法：直接写函数名等补全
+function processData(data) {
+}
+
+// 好的做法：用注释描述需求
+// 解析用户上传的CSV文件，过滤掉无效行，
+// 将有效数据按日期分组，返回每组的数据条数统计
+function processUserData(csvContent: string): Map&lt;string, number&gt; {
+  // 此时 Copilot 会给出准确得多的代码建议
+}</code></pre>
+
+<h3 id="tip-2">2. 使用 Ctrl+Enter 查看多个备选方案</h3>
+<p>当 Copilot 给出的建议不完全符合预期时，不要仅仅接受或忽略。按下 <code>Ctrl+Enter</code>（macOS 为 <code>Cmd+Enter</code>）会打开一个单独的标签页，展示最多10个不同的补全方案。你可以逐一浏览，找到最合适的版本，或者从中获取灵感来编写自己的解决方案。</p>
+
+<h3 id="tip-3">3. 利用 Copilot Chat 的 /fix 命令</h3>
+<p>VS Code 中的 Copilot Chat 提供了多个斜杠命令，其中 <code>/fix</code> 是最实用的之一。当你选中一段有问题的代码后，在聊天面板中输入 <code>/fix</code>，Copilot 会自动分析代码中的问题并提供修复方案。这比手动描述错误更高效，特别适合快速修复编译错误和 lint 警告。</p>
+<pre><code class="language-text">/fix 修复选中代码中的所有类型错误和潜在的空指针异常</code></pre>
+
+<h3 id="tip-4">4. 巧用 Alt+] 和 Alt+[ 切换建议</h3>
+<p>Copilot 通常会提供多个代码建议。与其逐一尝试，不如使用快捷键快速切换：<code>Alt+]</code> 切换到下一个建议，<code>Alt+[</code> 切换到上一个建议。这样可以快速预览所有选项，找到最合适的片段。配合 <code>Ctrl+Enter</code> 使用效果更佳。</p>
+
+<h3 id="tip-5">5. 通过 GitHub Copilot 定义全局规则</h3>
+<p>在项目根目录创建一个 <code>.github/copilot-instructions.md</code> 文件，写入项目的编码规范和上下文信息，Copilot 在生成代码时会自动参考这些指令。这是让 Copilot 输出符合项目风格代码的最有效方式。</p>
+<pre><code class="language-markdown"># Copilot Instructions
+
+## 技术栈
+- 前端：React 18 + TypeScript + Tailwind CSS
+- 后端：Node.js + Express + Prisma ORM
+- 数据库：PostgreSQL
+
+## 编码规范
+- 使用函数式组件和 Hooks，避免类组件
+- 所有接口使用 TypeScript 类型定义
+- 错误处理使用 try-catch，不要忽略异常
+- 注释使用 JSDoc 格式
+- 单元测试覆盖率不低于 80%</code></pre>
+
+<h3 id="tip-6">6. 在测试文件中自动生成测试用例</h3>
+<p>Copilot 在测试文件中的表现尤其出色。当你打开一个测试文件（如 <code>*.test.ts</code> 或 <code>*.spec.js</code>）并开始编写测试时，Copilot 会自动根据被测试的模块生成测试用例。一个实用的技巧是：先写好测试描述（describe）和测试用例名称（it），Copilot 就能根据函数名和上下文推断出应该测试什么。</p>
+<pre><code class="language-javascript">describe('UserService', () => {
+  it('should create a new user with encrypted password', () => {
+    // 写到这里时 Copilot 会自动生成完整的测试代码
+  });
+});</code></pre>
+
+<h3 id="tip-7">7. 利用 Copilot 进行代码解释和重构</h3>
+<p>在 Copilot Chat 中，你可以选中一段代码然后使用 <code>/explain</code> 命令让 Copilot 解释这段代码的功能。这对于阅读他人代码或遗留代码特别有帮助。同样，<code>/refactor</code> 命令可以帮助你优化现有代码，Copilot 会提供改进后的版本和修改说明。</p>
+<pre><code class="language-text">/explain 解释这段代码的业务逻辑
+/refactor 将这个组件拆分为更小的子组件</code></pre>
+
+<h3 id="tip-8">8. 使用 Copilot 的内联对话功能</h3>
+<p>在 VS Code 中，选中代码后按下 <code>Ctrl+I</code>（macOS 为 <code>Cmd+I</code>）可以打开内联对话窗口，无需打开侧边栏就能与 Copilot 交互。这比打开完整的聊天面板更快捷，适合快速提问、"改写这段代码"或"解释这个函数"等轻量级操作。内联对话的结果会直接应用在当前光标位置。</p>
+
+<h3 id="tip-9">9. 利用 Copilot 生成正则表达式和复杂查询</h3>
+<p>正则表达式和 SQL 查询是很多开发者的痛点，但这恰好是 Copilot 的强项。你只需要用自然语言描述想要匹配或查询的内容，Copilot 就能生成对应的表达式。</p>
+<pre><code class="language-javascript">// 匹配中国大陆手机号码的正则表达式
+// 要求：11位数字，以1开头，第二位是3-9之间的数字
+const phoneRegex = /^1[3-9]\d{9}$/;
+
+// 生成一个复杂的 SQL 查询：找出过去30天内下过3次以上订单的活跃用户
+// 按订单总金额降序排列，取前100名
+const sql = `
+  SELECT u.id, u.name, COUNT(o.id) as order_count, SUM(o.amount) as total_amount
+  FROM users u
+  JOIN orders o ON u.id = o.user_id
+  WHERE o.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+  GROUP BY u.id, u.name
+  HAVING order_count > 3
+  ORDER BY total_amount DESC
+  LIMIT 100
+`;</code></pre>
+
+<h3 id="tip-10">10. 使用 Copilot 作为学习工具</h3>
+<p>Copilot 不仅是生产力工具，它还是一个极好的学习伙伴。当你遇到不熟悉的 API 或编程概念时，可以问 Copilot "如何使用这个 API"或"解释这个概念"。Copilot Chat 会给出详细的解释和代码示例。你还可以让它用不同的方式实现同一个功能，通过对比学习最佳实践。</p>
+<pre><code class="language-text">// 在 Copilot Chat 中提问
+"解释 JavaScript 中 Promise.all 和 Promise.allSettled 的区别，并给出示例"
+
+// Copilot 会提供详细的比较和代码示例</code></pre>
+
+<p>以上10个技巧中，最值得立刻开始使用的是注释引导法和项目规则文件。前者能即时提升 Copilot 的补全质量，后者则能确保整个项目的代码风格一致性。记住，Copilot 的能力上限很大程度上取决于你如何与它交互 — 投入时间学习这些技巧，你的编程效率将得到显著提升。</p>
+</div>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">GitHub Copilot 远不止代码补全那么简单。通过注释引导法、多种快捷键（Ctrl+Enter、Ctrl+I）、斜杠命令（/fix、/explain、/refactor）、项目规则文件等技巧，你可以大幅提升 Copilot 的代码生成质量和开发效率。本文介绍的10个技巧涵盖了从日常编码到复杂查询的方方面面。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tools/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回工具评测</a>
+<a href="/pages/tools/comparison-2026.html" class="text-indigo-500 hover:text-indigo-600">Claude vs Cursor vs Copilot 深度对比(2026) &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h3 active" data-target="tip-1">1. 用注释引导生成精确代码</div>
+<div class="toc-item h3" data-target="tip-2">2. Ctrl+Enter 查看多个备选方案</div>
+<div class="toc-item h3" data-target="tip-3">3. Copilot Chat 的 /fix 命令</div>
+<div class="toc-item h3" data-target="tip-4">4. Alt+] 和 Alt+[ 切换建议</div>
+<div class="toc-item h3" data-target="tip-5">5. 定义全局规则文件</div>
+<div class="toc-item h3" data-target="tip-6">6. 自动生成测试用例</div>
+<div class="toc-item h3" data-target="tip-7">7. 代码解释和重构</div>
+<div class="toc-item h3" data-target="tip-8">8. 内联对话功能</div>
+<div class="toc-item h3" data-target="tip-9">9. 生成正则和复杂查询</div>
+<div class="toc-item h3" data-target="tip-10">10. 作为学习工具使用</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tools/comparison-2026.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Claude vs Cursor vs Copilot 深度对比(2026)</a>
+<a href="/pages/tools/cursor-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Cursor 从入门到精通</a>
+<a href="/pages/tools/claude-code-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Claude Code 完全指南</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

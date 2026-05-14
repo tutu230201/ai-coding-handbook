@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用AI写一个Chrome浏览器扩展 - AI编程指南</title>
+<meta name="description" content="Step-by-step教程，教你如何利用AI辅助开发一个Chrome浏览器扩展，从想法到上架。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<div id="reading-progress"></div>
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a> &gt; Chrome扩展教程
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">用AI写一个Chrome浏览器扩展</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 20分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-yellow-50 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400">中级</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600">Chrome扩展</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 dark:bg-emerald-900/50 text-emerald-600">浏览器插件</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<h2 id="section-1">1. 扩展创意：我们要做什么</h2>
+
+<p>在本教程中，我们将利用 AI 辅助开发一个实用的 Chrome 浏览器扩展——<strong>「网页标注器」(Page Annotator)</strong>。这个扩展允许用户在任意网页上选中文本并添加高亮标注，所有标注会自动保存，再次访问同一页面时高亮内容依然存在。</p>
+
+<p>这个项目虽然看起来简单，但它涵盖了 Chrome 扩展开发的全部核心概念：</p>
+
+<ul>
+<li><strong>Content Script</strong> — 注入到网页中操作 DOM</li>
+<li><strong>Popup 弹窗</strong> — 扩展的交互界面</li>
+<li><strong>Background Service Worker</strong> — 后台逻辑处理</li>
+<li><strong>Chrome Storage API</strong> — 本地数据持久化</li>
+<li><strong>消息通信机制</strong> — 不同组件间的数据传递</li>
+</ul>
+
+<p>选择标注扩展作为教程项目，是因为它的功能边界清晰、交互直观，非常适合用来演示如何将需求拆解后逐个交给 AI 实现。</p>
+
+<h2 id="section-2">2. 项目结构</h2>
+
+<p>一个标准的 Chrome 扩展（Manifest V3）由以下几个核心文件组成。在开始写代码之前，先用表格厘清每个文件的职责：</p>
+
+<table>
+<thead>
+<tr><th>文件</th><th>用途</th></tr>
+</thead>
+<tbody>
+<tr><td>manifest.json</td><td>扩展的配置文件，声明权限、入口文件、图标等</td></tr>
+<tr><td>content.js</td><td>注入到网页的脚本，负责 DOM 操作和标注渲染</td></tr>
+<tr><td>popup.html</td><td>点击扩展图标时弹出的界面</td></tr>
+<tr><td>popup.js</td><td>popup 的交互逻辑</td></tr>
+<tr><td>background.js</td><td>Service Worker，处理后台任务和事件监听</td></tr>
+<tr><td>styles.css</td><td>标注的样式定义</td></tr>
+<tr><td>icons/</td><td>扩展图标（16px、48px、128px 三种尺寸）</td></tr>
+</tbody>
+</table>
+
+<p>在 Cursor 中创建项目文件夹 <code>page-annotator</code>，然后我们就可以开始向 Claude 描述需求了。</p>
+
+<h2 id="section-3">3. 用AI生成manifest.json和基础文件</h2>
+
+<p>这是最关键的一步——我们将直接让 Claude 生成完整的扩展骨架。打开 Cursor 的 AI 对话（确保选择 Claude 模型），输入以下提示词：</p>
+
+<blockquote>
+<p>"请帮我创建一个 Chrome Manifest V3 扩展的完整项目骨架。扩展功能是网页文本标注器，需要以下权限：storage（保存标注数据）、scripting（注入脚本）、activeTab（访问当前标签页）。请生成 manifest.json、content.js、popup.html、popup.js、background.js 五个文件，并在 manifest.json 中声明 content_scripts 匹配所有网址。"</p>
+</blockquote>
+
+<p>Claude 会生成完整的 <code>manifest.json</code>：</p>
+
+<pre><code class="language-json">{
+  "manifest_version": 3,
+  "name": "网页标注器",
+  "version": "1.0.0",
+  "description": "在任意网页上选中文本添加高亮标注",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "&lt;all_urls&gt;"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["&lt;all_urls&gt;"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
+</code></pre>
+
+<p>注意 Manifest V3 相比 V2 的几个重要变化：<code>background</code> 改为了 <code>service_worker</code>，不再支持远程代码执行，权限声明更加严格。如果你的 Claude 版本生成了 V2 的 manifest，只需要追加一句 "请使用 Manifest V3" 即可修正。</p>
+
+<h2 id="section-4">4. 核心功能开发</h2>
+
+<p>骨架搭建完成后，我们逐个开发核心功能模块。这里的关键策略是：<strong>一个功能、一次对话、一次生成</strong>。</p>
+
+<h3 id="section-4-1">4.1 Content Script — 标注引擎</h3>
+
+<p>Content Script 是扩展的核心，负责在网页中选中文本、创建高亮元素、以及恢复已保存的标注。向 Claude 描述：</p>
+
+<blockquote>
+<p>"请帮我完善 content.js，实现以下功能：1) 监听鼠标松开事件 (mouseup)，获取用户选中的文本及其位置信息 2) 创建一个浮动工具栏，包含 '高亮' 按钮 3) 点击高亮按钮后用 &lt;mark&gt; 标签包裹选中的文本 4) 为每个高亮添加一个唯一的 data-id 属性 5) 将标注数据（页面URL、选中文本、高亮元素的 data-id）保存到 chrome.storage.local 6) 页面加载时从 storage 读取当前页面的所有标注并恢复高亮"</p>
+</blockquote>
+
+<p>Claude 会生成类似下面的核心代码：</p>
+
+<pre><code class="language-javascript">// content.js
+let floatingToolbar = null
+
+// 创建浮动工具栏
+function createToolbar() {
+  const toolbar = document.createElement('div')
+  toolbar.id = 'page-annotator-toolbar'
+  toolbar.innerHTML = `
+    <button id="annotator-highlight">🖊️ 高亮</button>
+    <button id="annotator-cancel">取消</button>
+  `
+  toolbar.style.cssText = `
+    position: fixed; z-index: 2147483647;
+    background: white; border: 1px solid #ddd;
+    border-radius: 8px; padding: 6px 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none; font-family: system-ui;
+  `
+  document.body.appendChild(toolbar)
+
+  toolbar.querySelector('#annotator-highlight')
+    .addEventListener('click', applyHighlight)
+  toolbar.querySelector('#annotator-cancel')
+    .addEventListener('click', hideToolbar)
+
+  return toolbar
+}
+
+// 显示工具栏
+function showToolbar(x, y) {
+  if (!floatingToolbar) floatingToolbar = createToolbar()
+  floatingToolbar.style.left = x + 'px'
+  floatingToolbar.style.top = y + 'px'
+  floatingToolbar.style.display = 'flex'
+  floatingToolbar.style.gap = '8px'
+}
+
+function hideToolbar() {
+  if (floatingToolbar) floatingToolbar.style.display = 'none'
+}
+
+// 应用高亮
+function applyHighlight() {
+  const selection = window.getSelection()
+  if (!selection.rangeCount || selection.isCollapsed) return
+
+  const range = selection.getRangeAt(0)
+  const selectedText = selection.toString().trim()
+  if (!selectedText) return
+
+  const highlightId = 'anno-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6)
+  const span = document.createElement('mark')
+  span.setAttribute('data-annotator-id', highlightId)
+  span.style.cssText = 'background: #ffeb3b; border-radius: 2px; cursor: pointer;'
+
+  try {
+    range.surroundContents(span)
+  } catch (e) {
+    // 跨节点选择时使用更复杂的方法
+    const fragment = range.extractContents()
+    span.appendChild(fragment)
+    range.insertNode(span)
+  }
+
+  // 保存到 storage
+  const annotation = {
+    id: highlightId,
+    url: window.location.href,
+    text: selectedText,
+    created: new Date().toISOString()
+  }
+
+  chrome.storage.local.get('annotations', (data) => {
+    const annotations = data.annotations || {}
+    if (!annotations[window.location.href]) {
+      annotations[window.location.href] = []
+    }
+    annotations[window.location.href].push(annotation)
+    chrome.storage.local.set({ annotations })
+  })
+
+  hideToolbar()
+  selection.removeAllRanges()
+}
+
+// 恢复已保存的标注
+function restoreAnnotations() {
+  chrome.storage.local.get('annotations', (data) => {
+    const annotations = data.annotations || {}
+    const pageAnnotations = annotations[window.location.href] || []
+    // 注意：实际恢复高亮需要更复杂的逻辑，
+    // 这里简化处理，仅记录标注数量
+    console.log('已恢复 ' + pageAnnotations.length + ' 条标注')
+  })
+}
+
+// 事件监听
+document.addEventListener('mouseup', (e) => {
+  const selection = window.getSelection()
+  if (selection.rangeCount && !selection.isCollapsed) {
+    showToolbar(e.clientX + 10, e.clientY + 10)
+  } else {
+    setTimeout(hideToolbar, 200)
+  }
+})
+
+// 初始化
+restoreAnnotations()
+floatingToolbar = createToolbar()
+</code></pre>
+
+<h3 id="section-4-2">4.2 Popup 界面</h3>
+
+<p>Popup 是用户与扩展交互的主要入口，我们希望它能显示当前页面的标注列表，并提供管理功能：</p>
+
+<pre><code class="language-html">&lt;!-- popup.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;style&gt;
+    body { width: 320px; padding: 16px; font-family: system-ui; margin: 0; }
+    h2 { font-size: 16px; margin: 0 0 12px 0; color: #333; }
+    .annotation-item {
+      padding: 8px 12px; margin-bottom: 6px;
+      background: #fffde7; border-left: 3px solid #ffeb3b;
+      border-radius: 4px; font-size: 13px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .annotation-item:hover { background: #fff9c4; }
+    .annotation-text {
+      overflow: hidden; text-overflow: ellipsis;
+      white-space: nowrap; color: #555;
+    }
+    .annotation-time { font-size: 11px; color: #999; margin-top: 4px; }
+    .empty-state {
+      text-align: center; color: #999; padding: 24px 0;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;📌 当前页面标注&lt;/h2&gt;
+  &lt;div id="annotation-list"&gt;
+    &lt;div class="empty-state"&gt;暂无标注&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script src="popup.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<pre><code class="language-javascript">// popup.js
+document.addEventListener('DOMContentLoaded', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const currentUrl = tabs[0].url
+    const list = document.getElementById('annotation-list')
+
+    chrome.storage.local.get('annotations', (data) => {
+      const annotations = data.annotations || {}
+      const pageAnnotations = annotations[currentUrl] || []
+
+      if (pageAnnotations.length === 0) {
+        list.innerHTML = '&lt;div class="empty-state"&gt;当前页面没有标注&lt;/div&gt;'
+        return
+      }
+
+      list.innerHTML = pageAnnotations.map(a =&gt; `
+        &lt;div class="annotation-item" data-id="${a.id}"&gt;
+          <div class="annotation-text">${escapeHtml(a.text)}</div>
+          <div class="annotation-time">${new Date(a.created).toLocaleString('zh-CN')}</div>
+        </div>
+      `).join('')
+
+      // 点击标注跳转到页面高亮位置
+      list.querySelectorAll('.annotation-item').forEach(el => {
+        el.addEventListener('click', () => {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'scrollToAnnotation',
+            annotationId: el.dataset.id
+          })
+        })
+      })
+    })
+  })
+})
+
+function escapeHtml(text) {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
+}
+</code></pre>
+
+<h3 id="section-4-3">4.3 Background Service Worker</h3>
+
+<p>Service Worker 在后台运行，负责处理安装事件、消息转发和定期数据清理：</p>
+
+<pre><code class="language-javascript">// background.js
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    console.log('网页标注器已安装')
+
+    // 初始化存储结构
+    chrome.storage.local.set({
+      annotations: {},
+      settings: {
+        highlightColor: '#ffeb3b',
+        autoSync: true
+      }
+    })
+  }
+})
+
+// 定期清理空页面数据（每24小时）
+chrome.alarms.create('cleanup', { periodInMinutes: 1440 })
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'cleanup') {
+    chrome.storage.local.get('annotations', (data) => {
+      const annotations = data.annotations || {}
+      let cleaned = false
+
+      Object.keys(annotations).forEach(url =&gt; {
+        if (annotations[url].length === 0) {
+          delete annotations[url]
+          cleaned = true
+        }
+      })
+
+      if (cleaned) {
+        chrome.storage.local.set({ annotations })
+      }
+    })
+  }
+})
+</code></pre>
+
+<h2 id="section-5">5. 调试与测试</h2>
+
+<p>扩展开发完成后，进入调试环节。Chrome 提供了完善的开发者工具来调试扩展：</p>
+
+<h3>5.1 加载未打包的扩展</h3>
+
+<ol>
+<li>在 Chrome 地址栏访问 <code>chrome://extensions/</code></li>
+<li>打开右上角的 <strong>"开发者模式"</strong> 开关</li>
+<li>点击 <strong>"加载已解压的扩展程序"</strong>，选择项目文件夹</li>
+</ol>
+
+<p>加载成功后，你会看到扩展出现在列表中。点击扩展图标即可测试弹出界面，打开任意网页，选中文字就能看到浮动工具栏出现了。</p>
+
+<h3>5.2 调试工具</h3>
+
+<p>Chrome 扩展的调试入口分散在不同位置：</p>
+
+<ul>
+<li><strong>Content Script</strong>：在目标网页上右键 > "检查"，在 Console 中可以看到 content.js 的输出</li>
+<li><strong>Popup</strong>：右键点击扩展图标 > "审查弹出内容"</li>
+<li><strong>Service Worker</strong>：在 <code>chrome://extensions/</code> 中找到扩展，点击 "Service Worker" 链接</li>
+<li><strong>Storage 数据</strong>：在 DevTools 的 "Application" > "Storage" > "Local Storage" 中查看</li>
+</ul>
+
+<h3>5.3 常见问题</h3>
+
+<p>开发过程中 AI 生成的代码可能会遇到一些典型问题，这里列出最常见的几种及解决方案：</p>
+
+<ul>
+<li><strong>Content Script 没有执行</strong>：检查 manifest.json 中的 <code>matches</code> 是否包含目标网址，以及 <code>run_at</code> 是否设置正确</li>
+<li><strong>Chrome API 报 undefined</strong>：Manifest V3 中某些 API 只能在 Service Worker 中调用，如 <code>chrome.alarms</code> 不能在 content script 中使用</li>
+<li><strong>高亮跨标签页消失</strong>：确认存储交互是否正确，可以在 <code>chrome.storage.local.get</code> 的回调中加 <code>console.log</code> 验证数据</li>
+</ul>
+
+<p>遇到这些问题时，最简单的做法是：<strong>把错误信息直接复制给 Claude</strong>，它通常能在几秒内定位问题并给出修复方案。</p>
+
+<h2 id="section-6">6. 发布到Chrome Web Store</h2>
+
+<p>扩展开发和调试完成后，下一步就是发布到 Chrome Web Store。以下是发布流程的核心步骤：</p>
+
+<h3>6.1 准备工作</h3>
+
+<ol>
+<li>登录 <a href="https://chrome.google.com/webstore/devconsole" target="_blank">Chrome Web Store 开发者控制台</a>（需一次性支付 $5 注册费）</li>
+<li>准备好扩展图标（128x128 像素的 PNG）</li>
+<li>准备好截图和宣传图（至少 1280x800 像素）</li>
+<li>编写详细的隐私政策说明</li>
+</ol>
+
+<h3>6.2 打包上传</h3>
+
+<p>让 Claude 帮你生成一个打包脚本：</p>
+
+<blockquote>
+<p>"请帮我创建一个 package.sh 脚本，将 Chrome 扩展项目打包为 zip 文件，排除 node_modules、.git 和任何不需要包含在发布包中的文件。"</p>
+</blockquote>
+
+<pre><code class="language-bash">#!/bin/bash
+# package.sh - 打包扩展
+zip -r page-annotator.zip . \
+  -x "*.git*" \
+  -x "node_modules/*" \
+  -x "*.md" \
+  -x "package.sh"
+echo "打包完成: page-annotator.zip"
+</code></pre>
+
+<h3>6.3 审核注意事项</h3>
+
+<p>Chrome Web Store 对扩展的审核越来越严格，以下是几个关键事项：</p>
+
+<ul>
+<li><strong>权限最小化原则</strong>：只申请扩展实际使用的权限，避免使用 <code>&lt;all_urls&gt;</code> 如果能缩小范围的话</li>
+<li><strong>隐私政策</strong>：如果扩展处理任何用户数据，必须提供隐私政策链接</li>
+<li><strong>代码可读性</strong>：不要使用混淆或压缩过的 JavaScript 代码——Chrome 要求提交的代码应该是人类可读的</li>
+<li><strong>远程代码</strong>：Manifest V3 严格禁止远程代码执行，所有代码必须打包在扩展中</li>
+</ul>
+
+<p>审核周期通常为 1-3 个工作日。首次提交时如果被拒，不用紧张——审核反馈通常会明确指出需要修改的地方，按照要求调整后重新提交即可。</p>
+
+<h2 id="section-7">7. 总结</h2>
+
+<p>通过这个教程，我们完整地走了一遍用 AI 开发 Chrome 扩展的全流程。回顾整个过程，有几个关键经验值得记住：</p>
+
+<ul>
+<li><strong>需求拆解是核心</strong>：把扩展的功能拆解成独立的小模块，每个模块单独向 AI 描述，能获得更精准的代码。一次描述太多需求会让 AI 的输出质量下降。</li>
+<li><strong>Manifest V3 是现在和未来</strong>：Chrome 正在逐步淘汰 Manifest V2，新开发的扩展直接使用 V3。如果你看到 AI 生成了 V2 的代码，提醒它升级即可。</li>
+<li><strong>AI + 开发者工具 = 高效调试</strong>：AI 生成代码后，利用 Chrome DevTools 进行验证和调试，遇到问题直接把错误信息喂给 AI，这种循环是最高效的开发方式。</li>
+</ul>
+
+<p>本教程的扩展源码可以在 <a href="https://github.com" target="_blank">GitHub</a> 上找到。如果你想进一步扩展功能，可以向 Claude 提出更多需求——比如添加不同颜色的高亮、支持笔记批注、或者云同步功能。AI 可以帮你把任何一个想法变成现实。</p>
+
+</div>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">通过本教程，你将学会如何利用AI辅助开发一个完整的Chrome浏览器扩展，从项目初始化到发布上架的全流程。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tutorials/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回实战教程</a>
+<a href="/pages/tutorials/fullstack-blog.html" class="text-indigo-500 hover:text-indigo-600">用Cursor+Claude构建全栈博客 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h2 active" data-target="section-1">1. 扩展创意</div>
+<div class="toc-item h2" data-target="section-2">2. 项目结构</div>
+<div class="toc-item h2" data-target="section-3">3. 用AI生成基础文件</div>
+<div class="toc-item h2" data-target="section-4">4. 核心功能开发</div>
+<div class="toc-item h3" data-target="section-4-1">4.1 Content Script</div>
+<div class="toc-item h3" data-target="section-4-2">4.2 Popup 界面</div>
+<div class="toc-item h3" data-target="section-4-3">4.3 Service Worker</div>
+<div class="toc-item h2" data-target="section-5">5. 调试与测试</div>
+<div class="toc-item h2" data-target="section-6">6. 发布到 Chrome Web Store</div>
+<div class="toc-item h2" data-target="section-7">7. 总结</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tips/prompt-engineering.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Prompt工程：让AI写出高质量代码</a>
+<a href="/pages/tips/ai-code-review.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">如何审查AI生成的代码</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

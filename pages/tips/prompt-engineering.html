@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt工程：让AI写出高质量代码 - AI编程指南</title>
+<meta name="description" content="系统学习如何编写高质量的Prompt，引导AI生成更好、更可靠的代码。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<div id="reading-progress"></div>
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 dark:text-indigo-400 bg-gray-100 dark:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/tips/" class="hover:text-indigo-500">技巧提升</a> &gt; Prompt工程
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Prompt工程：让AI写出高质量代码</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 15分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">初级</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3"><span class="px-2 py-0.5 rounded text-xs font-medium bg-amber-50 dark:bg-amber-900/50 text-amber-600">Prompt</span><span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600">技巧</span></div>
+</div>
+
+<div class="article-content max-w-none">
+
+<h2 id="what-is-prompt-engineering">什么是Prompt工程</h2>
+
+<p>Prompt工程，又称提示词工程，是指设计和优化输入给AI模型的指令（Prompt），以引导模型生成预期输出的系统化方法。在AI编程领域，Prompt工程决定了AI是否能准确理解你的需求，并生成高质量、可维护、安全的代码。</p>
+
+<p>很多开发者在使用AI编程工具时，往往只是简单地输入"写一个登录功能"或"实现用户管理模块"，然后对AI输出的代码质量感到失望。实际上，AI编程工具的能力很大程度上取决于你如何描述需求——就像与一个能力极强但需要清晰指令的资深工程师协作一样，好的Prompt是成功的关键。</p>
+
+<p>简单来说，Prompt工程的核心价值在于：它把你的脑海中的需求，转化为AI能够精确理解的结构化指令。这并非玄学，而是一套可以学习和复制的方法论。</p>
+
+<h2 id="core-principles">编写高质量Prompt的核心原则</h2>
+
+<h3>1. 具体明确</h3>
+<p>AI无法读取你的想法，它只能根据你输入的文字来理解需求。模糊的描述必然导致模糊的结果。比如"做一个好看的按钮"就不是一个好Prompt，AI不知道你心中的"好看"是什么样子的。</p>
+
+<p><strong>错误示范：</strong></p>
+<pre><code class="language-text">帮我写一个用户登录的表单。</code></pre>
+
+<p><strong>正确示范：</strong></p>
+<pre><code class="language-text">用HTML和CSS（Tailwind CSS）写一个用户登录表单。要求：
+- 包含邮箱输入框和密码输入框
+- 包含"记住我"复选框
+- 提交按钮使用indigo-600背景色
+- 表单要有基本的客户端验证（邮箱格式、密码非空）
+- 使用响应式设计，在移动端和桌面端都能良好显示
+- 提交时在控制台打印表单数据（暂时不用对接后端）</code></pre>
+
+<h3>2. 提供上下文和约束</h3>
+<p>AI不知道你的项目背景、技术栈偏好、编码规范或安全要求。你需要在Prompt中明确这些信息。</p>
+
+<pre><code class="language-text">你是我们项目的资深后端开发者。请为我们的电商平台实现一个"用户地址管理"的API端点。
+
+技术栈约束：
+- 语言：TypeScript
+- 框架：Express.js + Prisma ORM
+- 数据库：PostgreSQL
+- 遵循我们项目的RESTful API规范，使用 /api/v1/addresses 路由
+- 需要包含输入验证（使用Zod）
+- 需要包含基本的错误处理
+- 每个函数都要有JSDoc注释
+
+功能需求：
+- 创建新地址（需验证用户身份）
+- 获取用户所有地址列表
+- 更新指定地址
+- 删除指定地址
+- 设置默认地址
+
+安全要求：
+- 用户只能操作自己的地址
+- 对输入做防XSS处理
+- 使用参数化查询防止SQL注入</code></pre>
+
+<h3>3. 迭代优化</h3>
+<p>很少有人能一次性写出完美的Prompt。优秀的Prompt工程师通常的做法是：先给出一个初步的Prompt，评估AI的输出，然后根据结果调整和补充Prompt，逐步逼近理想结果。</p>
+
+<p>例如，AI第一次输出的代码可能缺少错误处理，你可以补充说："给每个函数添加 try-catch 错误处理，并在catch中返回标准的错误响应格式。"AI第二次输出的代码可能性能不佳，你可以继续要求："请使用数据库连接池，并确保查询只返回需要的字段，不要 SELECT *。"</p>
+
+<h2 id="prompt-templates">编程场景的Prompt模板</h2>
+
+<h3>模板一：新建功能的完整需求</h3>
+<pre><code class="language-text">## 角色
+你是一名资深{语言/框架}工程师。
+
+## 任务
+实现{功能名称}。
+
+## 技术栈
+- 语言：{语言}
+- 框架/库：{框架}
+- 数据库：{数据库类型}
+- 其他依赖：{其他工具}
+
+## 功能需求
+1. {需求1}
+2. {需求2}
+3. {需求3}
+
+## 非功能需求
+- 代码需要包含完整的错误处理
+- 添加必要的日志
+- 遵循{编码规范}
+- 添加类型定义（如适用）
+- 每个函数/方法都需要写文档注释
+
+## 输出格式
+请输出完整的代码文件，不要省略任何部分。对关键逻辑添加中文注释。</code></pre>
+
+<h3>模板二：调试Bug</h3>
+<pre><code class="language-text">以下代码存在一个Bug：{描述Bug现象，如"点击提交按钮后页面会卡死"}
+
+代码上下文：
+```{语言}
+{贴代码}
+```
+
+我已经尝试了{已经尝试过的排查方法}，但没有找到原因。
+
+请帮我：
+1. 分析Bug的可能原因
+2. 给出修复方案
+3. 解释为什么这个修复是有效的</code></pre>
+
+<h3>模板三：代码重构</h3>
+<pre><code class="language-text">请重构以下代码，目标是提高代码的可维护性和可读性。
+
+当前代码的痛点：
+{代码痛点}
+
+重构要求：
+- 遵循单一职责原则
+- 提取可复用的函数/组件
+- 添加TypeScript类型定义
+- 保持与现有API兼容
+- 添加单元测试（使用{测试框架}）
+
+当前代码：
+```{语言}
+{代码}
+```</code></pre>
+
+<h2 id="common-pitfalls">常见Prompt陷阱</h2>
+
+<p><strong>陷阱一：一次性提太多需求。</strong> 在一个Prompt中塞入大量不相关的功能需求，AI容易遗漏或混淆。建议将大任务拆分为多个小任务，逐步完成。</p>
+
+<p><strong>陷阱二：不指定输出格式。</strong> AI默认会输出长篇解释夹杂代码，如果你只需要纯代码，一定要在Prompt中明确说明。</p>
+
+<p><strong>陷阱三：忘记给出负面指令。</strong> 有时候告诉AI"不要做什么"比"要做什么"更重要。例如："不要使用任何第三方库"、"不要生成CSS文件，所有样式内联"、"不要使用any类型"。</p>
+
+<p><strong>陷阱四：假设AI知道你的项目结构。</strong> 除非你在Prompt中提供了项目上下文，否则AI不知道你的文件结构、已有代码和命名约定。在使用Claude Code等能读取项目的工具时，可以在Prompt中引用相关文件。</p>
+
+<p><strong>陷阱五：不验证AI的输出。</strong> 即使Prompt写得再好，AI也可能产生幻觉或错误代码。始终要对AI生成的代码进行审查和测试，特别是涉及安全敏感逻辑（认证、鉴权、支付等）的代码。</p>
+
+<h2 id="advanced-techniques">进阶技巧</h2>
+
+<h3>Chain-of-Thought（思维链）</h3>
+<p>引导AI逐步推理，而不是直接给出答案。这在复杂逻辑场景下特别有效。</p>
+<pre><code class="language-text">请一步一步思考以下问题，然后将你的推理过程写出来，最后再给出代码实现：
+
+我们需要实现一个函数，判断一个数独谜题是否有效。请先分析有效数独的条件，然后设计算法，最后编码实现。</code></pre>
+
+<h3>Few-Shot（少样本）</h3>
+<p>给AI提供几个输入输出示例，让它模仿示例的模式。这对于需要特定格式输出的任务非常有效。</p>
+<pre><code class="language-text">以下是一些API端点的示例，请注意输出的风格和格式：
+
+示例1：
+输入："创建用户" -> 输出：POST /api/v1/users - 创建新用户
+
+示例2：
+输入："获取用户详情" -> 输出：GET /api/v1/users/:id - 根据ID获取用户信息
+
+示例3：
+输入："更新用户信息" -> 输出：PATCH /api/v1/users/:id - 更新指定用户的字段
+
+现在请按照上面的风格，为"用户地址管理"生成所有需要的API端点。</code></pre>
+
+<h3>角色扮演与系统提示</h3>
+<p>给AI设定一个明确的角色和风格，可以显著改变输出质量。尝试以下角色设定：</p>
+<ul>
+<li>"你是一名拥有10年经验的Python后端工程师，代码风格偏向简洁和Pythonic"</li>
+<li>"你是一名专注于安全的前端开发者，对XSS、CSRF等安全威胁了如指掌"</li>
+<li>"你是一名DevOps工程师，你的代码天生具备可观测性和可部署性"</li>
+</ul>
+
+<h2 id="summary">总结</h2>
+<p>Prompt工程不是魔法，而是一项可以通过刻意练习掌握的技能。它的核心无非是：明确需求、提供上下文、分解任务、持续迭代。在实际使用AI编程工具时，建议从简单的Prompt开始，根据AI的输出不断调整和补充，而不是期望一次性就得到完美的结果。</p>
+<p>记住，好的Prompt就像好的需求文档——它让协作变得高效、顺畅。花在优化Prompt上的时间，会在AI输出质量上获得数倍的回报。</p>
+
+</div>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">好的Prompt是高质量AI编程的关键。通过本文学会的结构化Prompt编写方法，可以显著提升AI生成代码的质量。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tips/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回技巧提升</a>
+<a href="/pages/tips/ai-code-review.html" class="text-indigo-500 hover:text-indigo-600">审查AI代码 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc"></div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tips/ai-code-review.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">如何审查AI生成的代码</a>
+<a href="/pages/tutorials/fullstack-blog.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">用Cursor+Claude构建全栈博客</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
