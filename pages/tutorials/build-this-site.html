@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用AI从零搭建一个AI编程攻略网站 - AI编程指南</title>
+<meta name="description" content="一个真实的AI编程实战案例：从想法到上线，用AI全程辅助搭建这个AI编程攻略网站的完整过程。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+<script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+<div id="reading-progress"></div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+首页 &gt; <a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a> &gt; 用AI从零搭建AI编程攻略网站
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-red-50 dark:bg-red-900/50 text-red-600 dark:text-red-400 mb-3">🔥 真实案例</span>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">用AI从零搭建一个AI编程攻略网站</h1>
+<p class="text-xl text-gray-500 dark:text-gray-400 mb-4">本站诞生记 — 一个真实的AI辅助开发全记录</p>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-14</span>
+<span>⏱ 20分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-yellow-50 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400">中级</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600">Claude</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-purple-50 dark:bg-purple-900/50 text-purple-600">AI编程</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 dark:bg-green-900/50 text-green-600">实战</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600">案例</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<h2 id="project-origin">项目缘起</h2>
+
+<p>说来也有趣，这个网站本身就是一个"用AI做AI教程"的元实践。过去一年多，我目睹了AI编程工具以惊人的速度演进——从GitHub Copilot补全代码片段，到Claude和GPT能一口气生成整个组件，再到Cursor这样的AI-native编辑器彻底改变开发体验。几乎每周都有新工具、新技巧涌现。</p>
+
+<p>但我发现一个问题：<strong>中文世界里缺少一个系统化的AI编程攻略站</strong>。信息散落在知乎专栏、公众号文章、B站视频和各个技术博客里，不成体系。新手开发者想入门AI编程，往往不知道从哪里开始——是先学Prompt Engineering？还是直接上手Cursor？市面上那么多AI工具，哪个最适合自己的场景？</p>
+
+<p>于是我想，为什么不自己做一个呢？一个聚焦"AI编程"的中文内容站，覆盖从入门到进阶的完整学习路径。更重要的是——<strong>这个网站本身就应该用AI来建</strong>，用实践来证明AI编程的真实能力。这就是"AI编程指南"（ai-coding-guide）的诞生起源。</p>
+
+<p>我跟Claude说："我想做一个AI编程攻略的中文网站，帮我设计一下。"它没有敷衍地只给建议，而是直接给出了完整的网站架构、技术方案和内容规划。那个瞬间我就意识到——这件事确实能成。</p>
+
+<h2 id="requirements">需求分析与规划</h2>
+
+<p>动手之前，我先花时间梳理了目标用户群体和他们的核心需求。这不是一个泛泛的技术博客，而是一个有明确使命的内容站。我让AI帮我做了详细的需求分析：</p>
+
+<h3>目标用户画像</h3>
+
+<p>我梳理出三类核心读者：</p>
+
+<ul>
+<li><strong>编程新手</strong>（占比约40%）：没有太多开发经验，想知道AI能否帮他们跨过编程门槛，能否"不会代码也能做东西"</li>
+<li><strong>在职开发者</strong>（占比约35%）：已经会用传统方式编程，想了解AI工具如何提升工作效率，如何融入日常工作流</li>
+<li><strong>技术决策者</strong>（占比约25%）：技术负责人或创业者，关注AI编程的工具选型、团队落地和最佳实践</li>
+</ul>
+
+<p>这三类人的需求差异很大。新手要"手把手教程"，开发者要"高效技巧"和"工具对比"，决策者要"案例"和"方法论"。一个单一维度的内容结构无法同时满足所有人，所以我在内容策略上做了分层设计。</p>
+
+<h3>内容策略</h3>
+
+<p>我决定用"两条腿走路"的策略：</p>
+
+<ol>
+<li><strong>纵向分层</strong>：从入门到进阶，每篇文章标注难度等级，让读者能找到适合自己的起点</li>
+<li><strong>横向分类</strong>：按主题划分栏目，每个栏目聚焦一个维度，方便定向查找</li>
+</ol>
+
+<p>第一阶段的目标是覆盖所有核心栏目，每个栏目至少2-3篇文章，形成基础内容矩阵。有了骨架之后，再根据读者反馈和数据表现，逐步填充和优化。</p>
+
+<h2 id="architecture">信息架构设计</h2>
+
+<p>确定了目标用户和内容策略后，接下来就是设计网站的信息架构。这是搭建过程中的关键环节——结构决定了用户能否高效地找到所需内容。</p>
+
+<p>我采用了<strong>6大栏目体系</strong>：</p>
+
+<table>
+<thead>
+<tr><th>栏目</th><th>定位</th><th>面向人群</th></tr>
+</thead>
+<tbody>
+<tr><td>新手入门</td><td>零基础起步，第一篇文章教你30分钟做出第一个网页</td><td>编程新手</td></tr>
+<tr><td>工具评测</td><td>深度对比主流AI编程工具（Cursor、Claude Code、Copilot等）</td><td>所有开发者</td></tr>
+<tr><td>实战教程</td><td>完整项目实战，从需求到上线的全流程演示</td><td>有基础想进阶的开发者</td></tr>
+<tr><td>技巧提升</td><td>Prompt Engineering、效率技巧、工作流优化</td><td>在职开发者</td></tr>
+<tr><td>经验分享</td><td>真实案例复盘，踩坑记录，团队落地经验</td><td>技术决策者、进阶开发者</td></tr>
+<tr><td>资源</td><td>工具汇总、推荐阅读、关于本站</td><td>所有人</td></tr>
+</tbody>
+</table>
+
+<p>这个六栏体系的设计逻辑是：<strong>覆盖用户从"听说AI编程"到"精通AI编程"的完整旅程</strong>。"新手入门"降低了门槛，让任何人都能快速获得正反馈；"工具评测"帮助用户做出技术选型；"实战教程"展示真实开发场景；"技巧提升"和"经验分享"则通向高阶应用。</p>
+
+<p>在文章粒度的规划上，我设定了首批14篇文章作为站点基础内容。每篇文章控制在10-25分钟的阅读时长，确保信息密度适中。每篇文章还配置了标签系统（如"Claude""Cursor""Prompt"等），便于跨栏目关联和搜索。</p>
+
+<h2 id="tech-stack">技术选型</h2>
+
+<p>技术选型上，我的原则是<strong>"足够简单，但不简陋"</strong>。作为一个内容站，不需要复杂的后端架构，但必须在用户体验上做到位。</p>
+
+<h3>为什么选择纯静态HTML？</h3>
+
+<p>很多朋友问我："为啥不用Next.js或Hugo？静态页面一个一个写不累吗？"答案很简单——<strong>因为我有AI</strong>。AI生成静态HTML的效率极高，我只需要描述需求，它就能在几秒内输出一个完整的页面。既然AI代劳了重复劳动，"手动写HTML费时"就不再是问题了。</p>
+
+<p>而且纯静态方案带来的优势很明显：</p>
+<ul>
+<li><strong>零构建步骤</strong>：写完直接扔服务器，不需要编译、打包</li>
+<li><strong>极速加载</strong>：没有JS框架的运行时开销，首屏加载几乎瞬间完成</li>
+<li><strong>部署灵活</strong>：GitHub Pages、Vercel、Netlify，任意静态托管服务都能托管</li>
+<li><strong>搜索引擎友好</strong>：天然SEO，内容直接暴露在HTML中</li>
+</ul>
+
+<h3>技术栈全景</h3>
+
+<table>
+<thead>
+<tr><th>技术</th><th>用途</th><th>选择理由</th></tr>
+</thead>
+<tbody>
+<tr><td>Tailwind CSS (CDN)</td><td>样式框架</td><td>零构建、响应式、暗色模式原生支持</td></tr>
+<tr><td>highlight.js</td><td>代码高亮</td><td>轻量级、支持语言多、CDN可引用</td></tr>
+<tr><td>Fuse.js (搜索)</td><td>客户端全文搜索</td><td>无需后端服务，模糊匹配体验好</td></tr>
+<tr><td>Noto Sans SC</td><td>中文字体</td><td>Google出品，美观且免费</td></tr>
+<tr><td>Vercel</td><td>托管</td><td>全球CDN、自动HTTPS、Git集成</td></tr>
+</tbody>
+</table>
+
+<p>特别值得一提的是<strong>Tailwind CSS 的 CDN 方案</strong>。很多人不知道Tailwind可以直接通过CDN引用，不需要npm安装和构建配置。虽然CDN模式不支持自定义配置的Tree Shaking，但对于一个内容站来说完全够用。配合<code>darkMode: 'class'</code>配置，暗色模式的实现也非常优雅。</p>
+
+<h2 id="workflow">AI辅助开发工作流</h2>
+
+<p>终于到了本文最核心的部分——我是如何用AI来搭建这个网站的。整个流程可以概括为4个阶段。</p>
+
+<h3>阶段一：AI分析需求，设计方案</h3>
+
+<p>第一步，我向Claude描述了想做的东西：一个中文AI编程攻略网站，目标用户是谁，希望包含哪些内容。Claude没有直接开始写代码，而是先帮我梳理了需求、设计了信息架构，还画出了页面布局草案。</p>
+
+<p>这个环节的关键在于：<strong>不要把AI当成打字员，而是当成架构师</strong>。先让它理解全局，再让它生成代码，这样产出的东西才有整体感。</p>
+
+<h3>阶段二：AI生成模板和页面骨架</h3>
+
+<p>确定了架构之后，我开始让Claude生成具体的HTML文件。我使用了一个"模板+填充"的策略：先让AI生成一个标准文章模板，包含导航栏、文章布局、侧边栏TOC、搜索弹窗、页脚等完整结构。然后每写一篇新文章时，基于这个模板来生成。</p>
+
+<p>这是我的核心工作流：</p>
+
+<ol>
+<li><strong>描述文章主题</strong>：告诉AI要写什么类型的文章、面向谁、核心要点是什么</li>
+<li><strong>AI生成初稿</strong>：Claude输出完整的HTML文件，包括内容和样式</li>
+<li><strong>我审阅和修改</strong>：通读内容，修正事实性错误，调整表达方式</li>
+<li><strong>AI优化</strong>：根据反馈进行润色和改进</li>
+<li><strong>整合上线</strong>：加入导航索引、搜索索引，部署到Vercel验证</li>
+</ol>
+
+<p>多篇文章我甚至让多个AI"并行工作"——Claude处理架构和技术内容，另一路生成工具评测类文章，我在中间做协调和质量把控。这种"多Agent协作"的模式大幅加速了内容生产。</p>
+
+<h3>阶段三：搜索和交互功能</h3>
+
+<p>站点需要一个搜索功能。我没有引入Elasticsearch或Algolia这样重型的方案，而是用Fuse.js做了一个纯客户端模糊搜索。AI帮我生成了搜索索引JSON文件（包含所有文章的标题、描述、路径和标签），以及搜索弹窗的前端交互逻辑。整个过程只需要几十行代码。</p>
+
+<h3>阶段四：调试和打磨</h3>
+
+<p>没有任何项目是一次就完美的。在搭建过程中，我遇到了一些问题，比如：</p>
+
+<ul>
+<li>暗色模式切换时图标没有正确切换 → 让AI检查并修复了JS逻辑</li>
+<li>移动端导航菜单的展开/收起动画不平滑 → AI调整了CSS过渡</li>
+<li>搜索结果的展示格式不够直观 → 优化了渲染模板</li>
+<li>代码块在文章中的样式与网站主题不匹配 → 调整了highlight.js主题和自定义CSS</li>
+</ul>
+
+<p>每一个问题，我都是直接描述现象，AI给出修复方案。这种"描述问题→获得修复→验证"的循环非常高效。</p>
+
+<p>以下是项目的实际目录结构：</p>
+
+<pre><code class="language-bash">ai-coding-guide/
+├── index.html                # 首页
+├── css/custom.css            # 自定义样式
+├── js/main.js                # 全局交互（暗色模式、菜单、目录高亮等）
+├── js/search.js              # 搜索功能（基于Fuse.js）
+├── data/search-index.js      # 搜索索引数据
+├── pages/
+│   ├── getting-started/      # 新手入门
+│   │   └── first-ai-project.html
+│   ├── tools/                # 工具评测
+│   │   ├── cursor-guide.html
+│   │   ├── claude-code-guide.html
+│   │   └── ai-tools-comparison.html
+│   ├── tutorials/            # 实战教程
+│   │   ├── fullstack-blog.html
+│   │   ├── chrome-extension.html
+│   │   └── build-this-site.html   # ← 就是你现在看到的这篇文章
+│   ├── tips/                 # 技巧提升
+│   │   ├── prompt-engineering.html
+│   │   └── ai-workflow.html
+│   ├── cases/                # 经验分享
+│   │   └── freelance-story.html
+│   └── resources/            # 资源
+│       ├── index.html
+│       └── changelog.html
+└── vercel.json               # Vercel部署配置
+</code></pre>
+
+<h2 id="prompts">核心Prompt分享</h2>
+
+<p>很多读者问我是怎么向AI描述需求的。这里分享几个实际使用过的Prompt，供大家参考。</p>
+
+<h3>需求分析Prompt</h3>
+
+<p>这是最初让AI帮我做网站规划时使用的Prompt：</p>
+
+<pre><code class="language-markdown">你是一个资深的网站架构师和产品经理。我想搭建一个中文的"AI编程攻略"网站，
+目标用户是中文开发者（从新手到高级），核心主题是"用AI辅助编程"。
+
+请帮我完成以下工作：
+1. 分析目标用户的分类和各自的核心需求
+2. 设计网站的信息架构（栏目体系）
+3. 规划首批内容选题（10-15篇）
+4. 推荐技术栈（要求：纯前端、零后端、可部署在Vercel）
+
+输出格式：请用表格和列表清晰呈现，不要用大段文字。
+</code></pre>
+
+<p>这个Prompt的关键在于：<strong>定义了角色（网站架构师）、目标（AI编程攻略网站）、约束条件（纯前端、Vercel），并指定了输出格式</strong>。AI在明确约束下给出的方案，远比开放式的提问要具体和可用。</p>
+
+<h3>文章生成Prompt模板</h3>
+
+<p>这是我生成每篇文章时使用的模板化Prompt：</p>
+
+<pre><code class="language-markdown">请生成一篇关于[主题]的HTML文章，用于我的AI编程攻略网站。
+
+文章信息：
+- 标题：[文章标题]
+- 描述：[一句话描述]
+- 难度：[初级/中级/高级]
+- 阅读时间：[X分钟]
+- 标签：[标签1, 标签2, ...]
+
+技术规范：
+- 使用Tailwind CSS（CDN版本）
+- 代码块使用highlight.js（语言请标注正确）
+- 文章内容放在 &lt;div class="article-content max-w-none"&gt; 内
+- 中文内容，专业但易懂
+- 包含H2/H3多层标题结构
+- 文章长度：800-1200字
+
+写作要求：
+- 第一段要吸引人，可以用一个具体场景或问题开头
+- 每个要点都配具体例子
+- 代码示例要完整可运行
+- 结尾要有总结段落
+</code></pre>
+
+<p>这个模板的核心设计思路是：<strong>把"写作规范"和"技术规范"分离</strong>。AI在处理多重要求时容易顾此失彼，分开描述能让它在每个维度上都做到位。</p>
+
+<h3>调试和修复Prompt</h3>
+
+<p>当遇到问题时，我通常会这样描述：</p>
+
+<pre><code class="language-markdown">有一个Bug需要修复：
+- 页面：[页面路径]
+- 问题描述：在Chrome浏览器中，点击暗色模式切换按钮后，
+  太阳/月亮图标没有正确切换。当前图标始终显示为月亮。
+- 相关代码：js/main.js 中的 dark-toggle 事件处理逻辑
+- 期望行为：点击后图标从月亮切换为太阳（亮色模式），再点击切换回来
+
+请先分析可能的原因，然后给出修复代码。
+</code></pre>
+
+<p>注意这个Prompt的结构：<strong>问题现象 + 相关代码位置 + 期望行为 + 分析要求</strong>。让AI先分析再给代码，比直接让它"修复"效果更好。</p>
+
+<h2 id="results">成果与数据</h2>
+
+<p>经过几天的集中搭建，网站的第一阶段顺利上线。以下是一些关键数据：</p>
+
+<ul>
+<li><strong>29个HTML页面</strong>，涵盖首页、6个栏目页、14+篇文章以及辅助页面</li>
+<li><strong>全套交互功能</strong>：暗色模式切换、响应式导航、全文搜索、代码高亮、阅读进度条、回到顶部</li>
+<li><strong>所有页面HTTP 200</strong>：经过完整验证，无死链和404</li>
+<li><strong>平均加载时间&lt;1s</strong>：纯静态页面+CDN分发，用户体验流畅</li>
+</ul>
+
+<p>更重要的是，整个开发过程中，<strong>我没有手动写过一行CSS</strong>——所有的样式都由AI通过Tailwind类名生成。<strong>我没有配置过任何构建工具</strong>——CDN方案省去了Webpack/Vite的配置步骤。<strong>我没有写过搜索后端</strong>——Fuse.js在前端就完成了所有工作。</p>
+
+<p>这让我能够把精力完全集中在"内容"和"体验"上——思考哪些文章对读者最有价值，如何让导航更直观，怎样让代码示例更容易理解。这才是内容创作者应该关注的事情。</p>
+
+<h2 id="reflections">经验与反思</h2>
+
+<p>做完这个项目，我有很多感触想分享。以下是几个最重要的发现：</p>
+
+<h3>什么做得好</h3>
+
+<p><strong>AI在内容生成上的表现超出预期。</strong>最初我担心的"AI写的内容会不会很空洞"其实多虑了——只要Prompt给得具体（包括目标读者、核心观点、参考风格），AI产出的内容骨架是非常扎实的。我只需要做"编辑"而非"创作"，效率提升了数倍。</p>
+
+<p><strong>多Agent并行工作流有效。</strong>让不同的AI会话负责不同的任务——一个处理架构，一个生成文章，一个做代码检查——彼此独立，我作为"总编辑"统一把控质量。这种方式比一个人从头做到尾高效得多。</p>
+
+<p><strong>"模板化+个性化"的内容策略可行。</strong>统一的页面模板保证了体验的一致性，而每篇文章的个性化内容保证了阅读价值。AI特别擅长在固定框架内做创造性填充。</p>
+
+<h3>遇到的挑战</h3>
+
+<p><strong>内容质量控制是最难的部分。</strong>AI生成的内容有时会出现事实性错误（比如某个工具的版本号不对，或者某个功能描述有偏差）。每篇文章我都需要通读一遍，特别是技术细节部分必须逐个核实。这个步骤不能省。</p>
+
+<p><strong>多个AI会话之间的风格一致性是个问题。</strong>不同的会话生成的页面在措辞风格、表达习惯上有微妙差异。我花了一些时间来统一，方法是在每个新的AI会话中都粘贴"风格指南"——包括之前文章的段落样例和写作规范。</p>
+
+<p><strong>Prompt的设计需要持续迭代。</strong>一开始我写的Prompt比较笼统，输出质量不稳定。后来我学会了把复杂需求拆解成多个简单Prompt，每次都只专注一个目标。这个"从粗放到精准"的过程本身就是Prompt Engineering的实战练习。</p>
+
+<h3>给后来者的建议</h3>
+
+<p>如果你也想用AI搭建一个网站，我的建议是：</p>
+
+<ol>
+<li><strong>先想清楚"为什么"再动手</strong>。AI能帮你解决"怎么做"，但"为什么做"需要你自己想清楚。清晰的目标是有效Prompt的基础。</li>
+<li><strong>把AI当成协作者，而不是工具</strong>。当你对AI说"你觉得这个结构怎么样"而不是"按这个结构生成"，你会得到更有价值的建议。</li>
+<li><strong>保留人工审核环节</strong>。AI输出的内容一定要经过人工审阅，特别是涉及数据、日期、版本号等事实性信息。</li>
+<li><strong>从小处开始，快速迭代</strong>。不需要一次性规划所有内容，先发布一个最小可用版本，然后根据反馈持续优化。</li>
+</ol>
+
+</div>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 本文总结</h3>
+<p class="text-gray-600 dark:text-gray-400">这个网站本身就是AI编程能力的最好证明。从需求分析到架构设计，从页面生成到内容创作，AI贯穿了整个开发流程。希望这个案例能启发你，用AI去实现自己的想法。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tutorials/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回实战教程</a>
+<a href="/pages/tutorials/fullstack-blog.html" class="text-indigo-500 hover:text-indigo-600">用Cursor+Claude构建全栈博客 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h2 active" data-target="project-origin">项目缘起</div>
+<div class="toc-item h2" data-target="requirements">需求分析与规划</div>
+<div class="toc-item h2" data-target="architecture">信息架构设计</div>
+<div class="toc-item h2" data-target="tech-stack">技术选型</div>
+<div class="toc-item h2" data-target="workflow">AI辅助开发工作流</div>
+<div class="toc-item h2" data-target="prompts">核心Prompt分享</div>
+<div class="toc-item h2" data-target="results">成果与数据</div>
+<div class="toc-item h2" data-target="reflections">经验与反思</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tutorials/fullstack-blog.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">用Cursor+Claude构建全栈博客</a>
+<a href="/pages/tips/prompt-engineering.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Prompt工程：让AI写出高质量代码</a>
+<a href="/pages/getting-started/first-ai-project.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">30分钟用AI做出第一个网页</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。本站本身就是AI辅助开发的实践案例。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500">更新日志</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南 · 用AI构建，为AI编程而生</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

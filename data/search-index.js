@@ -91,6 +91,15 @@ window.searchIndex = [
         readTime: "25分钟"
     },
     {
+        title: "用AI从零搭建一个AI编程攻略网站",
+        url: "/pages/tutorials/build-this-site.html",
+        summary: "一个真实的AI编程实战案例：从想法到上线，用AI全程辅助搭建这个AI编程攻略网站的完整过程揭秘。",
+        category: "实战教程",
+        tags: ["AI编程", "实战", "案例", "建站", "Claude"],
+        difficulty: "中级",
+        readTime: "20分钟"
+    },
+    {
         title: "用AI写一个Chrome浏览器扩展",
         url: "/pages/tutorials/chrome-extension.html",
         summary: "Step-by-step教程，教你如何利用AI辅助开发一个Chrome浏览器扩展，从想法到上架。",
