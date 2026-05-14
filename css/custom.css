@@ -149,6 +149,10 @@ a:focus-visible {
     font-size: 0.875rem;
     line-height: 1.6;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    color: #e2e8f0;
+}
+.dark .article-content pre code {
+    color: #e2e8f0;
 }
 .article-content :not(pre) > code {
     background: #f1f5f9;
