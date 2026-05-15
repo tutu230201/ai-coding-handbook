@@ -1,19 +1,12 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/文章-15+-brightgreen" alt="文章数量">
-  <img src="https://img.shields.io/badge/工具-6-blue" alt="工具数量">
-  <img src="https://img.shields.io/badge/状态-持续更新-orange" alt="状态">
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-</div>
+# 🤖 AI编程指南
 
-<br>
+> 用AI写代码的完全攻略 — 从入门到精通的AI编程中文教程站
 
-<div align="center">
-  <h1>🤖 AI编程指南</h1>
-  <p><strong>用AI写代码的完全攻略 — 从入门到精通的AI编程中文教程站</strong></p>
-  <p>
-    <a href="https://ai-coding-handbook.vercel.app" target="_blank">🌐 访问网站</a>
-  </p>
-</div>
+[![文章](https://img.shields.io/badge/文章-15+-brightgreen)](https://ai-coding-handbook.vercel.app)
+[![工具](https://img.shields.io/badge/工具-6-blue)](https://ai-coding-handbook.vercel.app)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+🌐 **访问网站**：https://ai-coding-handbook.vercel.app
 
 ---
 
@@ -30,7 +23,7 @@
 ## 📂 内容分类
 
 | 分类 | 说明 | 文章数 |
-|---|---|---|
+|------|------|--------|
 | [新手入门](./pages/getting-started/) | AI编程是什么、工具选择、第一个项目 | 4 |
 | [工具评测](./pages/tools/) | Claude Code / Cursor / Copilot 深度评测 | 5 |
 | [实战教程](./pages/tutorials/) | 全栈博客、Chrome扩展、本站搭建 | 3 |
@@ -41,12 +34,12 @@
 ## 🛠️ 技术栈
 
 - **HTML** — 纯静态多页面
-- **CSS** — [Tailwind CSS CDN](https://tailwindcss.com/) (零构建)
-- **字体** — Noto Sans SC (Google Fonts)
-- **代码高亮** — [highlight.js](https://highlightjs.org/)
-- **搜索** — [Fuse.js](https://fusejs.io/) (客户端模糊搜索)
+- **CSS** — Tailwind CSS CDN（零构建）
+- **字体** — Noto Sans SC（Google Fonts）
+- **代码高亮** — highlight.js
+- **搜索** — Fuse.js（客户端模糊搜索）
 - **分析** — Vercel Web Analytics
-- **部署** — [Vercel](https://vercel.com/)
+- **部署** — Vercel
 
 ## ✨ 特性
 
