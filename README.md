@@ -30,29 +30,16 @@
 ## 📸 网站截图
 
 ### 🏠 首页
-替换这张图片：截取网站首页的 Hero 区域（标题"不会代码？用AI也能做出赚钱的网站"部分）
-
-![首页截图](images/screenshots/homepage.png)
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/c9d4ecf9-3772-4b35-9f26-c65b2da46f86" />
 
 ### 📂 分类导航
-替换这张图片：截取首页的 6 个分类卡片区域
-
-![分类截图](images/screenshots/categories.png)
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/48541303-9837-4fd5-95df-83516b8d4ae7" />
 
 ### 📄 文章详情页
-替换这张图片：截取任意一篇文章的正文区域（带目录侧栏）
-
-![文章截图](images/screenshots/article.png)
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/19fc6bbf-0a7e-4b71-adf8-c410c432782a" />
 
 ### 🌙 暗色模式
-替换这张图片：截取打开暗色模式后的首页效果
-
-![暗色截图](images/screenshots/darkmode.png)
-
-### 📱 手机端
-替换这张图片：用手机浏览器打开网站，截取首页效果
-
-![手机截图](images/screenshots/mobile.png)
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/f1bfa0cc-9b24-411a-beb2-8dfa6de1ff4b" />
 
 ---
 
