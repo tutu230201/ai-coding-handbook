@@ -25,6 +25,28 @@
 
 这个网站就是专门给「只有一点点基础甚至零基础」的人准备的。你不必成为程序员，只需要学会怎么跟AI聊天，就能让它帮你做出网站，然后开始赚钱。
 
+---
+
+## 📸 网站截图
+
+### 🏠 首页
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/c9d4ecf9-3772-4b35-9f26-c65b2da46f86" />
+
+
+### 📂 分类导航
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/48541303-9837-4fd5-95df-83516b8d4ae7" />
+
+
+### 📄 文章详情页
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/19fc6bbf-0a7e-4b71-adf8-c410c432782a" />
+
+
+### 🌙 暗色模式
+<img width="2550" height="1275" alt="image" src="https://github.com/user-attachments/assets/f1bfa0cc-9b24-411a-beb2-8dfa6de1ff4b" />
+
+
+---
+
 ## 📖 内容有哪些？
 
 | 分类 | 有什么 | 适合谁 |
@@ -54,6 +76,8 @@
 这个网站本身就是用AI做出来的。从需求分析到页面生成，从文章撰写到代码调试，全程AI辅助。详细过程写在了 **用AI从零搭建一个AI编程攻略网站** 这篇文章里。
 
 所以你看，AI做网站不是空谈——你现在看到的这个站，就是证明。
+
+---
 
 ## 本地运行
 
