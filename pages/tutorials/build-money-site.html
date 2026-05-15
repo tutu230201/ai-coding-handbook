@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>零基础用AI一个月做了个网站，月入3000 - AI编程指南</title>
+<meta name="description" content="一个完全不会编程的人，用AI一个月做出了一个网站并开始赚钱的真实经历。零基础也可以！">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+
+<div id="reading-progress"></div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+<a href="/" class="hover:text-indigo-500">首页</a> &gt; <a href="/pages/tutorials/" class="hover:text-indigo-500">实战教程</a> &gt; 建站赚钱案例
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">零基础用AI一个月做了个网站，月入3000</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-15</span>
+<span>⏱ 12分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400">入门</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-orange-50 dark:bg-orange-900/50 text-orange-600">案例</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-red-50 dark:bg-red-900/50 text-red-600">赚钱</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 dark:bg-green-900/50 text-green-600">零基础</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<div class="p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 mb-8">
+<p class="text-gray-700 dark:text-gray-300 font-medium">本文是一个真实案例分享。主人公小张今年刚毕业，完全不懂编程，但靠着AI的帮助，一个月内做出了一个能赚钱的网站。看完你就知道，这件事你也做得到。</p>
+</div>
+
+<h2 id="story-beginning">故事开始：一个完全不懂编程的人的决定</h2>
+
+<p>小张今年23岁，大学学的是市场营销，和编程八竿子打不着。毕业前，他刷到了一条短视频，说有人用AI做网站一个月赚了好几万。他第一反应是：假的吧？</p>
+
+<p>但接下来的几天，他越想越觉得可以试试。"反正也没有成本，顶多花点时间。"他说。</p>
+
+<p>小张的情况和很多读者一样：</p>
+
+<ul>
+<li><strong>完全不会写代码</strong> — 大学就学过一节课的HTML，早忘了</li>
+<li><strong>没有存款</strong> — 不想花钱请人开发</li>
+<li><strong>但有时间</strong> — 每天能抽出2-3小时折腾</li>
+<li><strong>有想法</strong> — 知道本地很多小商家没有网站</li>
+</ul>
+
+<p>他给自己定了一个目标：一个月内，做出一个能用的网站，并且至少赚到1000块钱。</p>
+
+<h2 id="picking-direction">选方向：做什么网站才能赚钱？</h2>
+
+<p>小张没有一上来就动手。他先用了一周时间想"做什么"。他总结了三条原则：</p>
+
+<ol>
+<li><strong>做本地生意</strong> — 大家都在做全国市场，但本地的需求没人满足</li>
+<li><strong>做简单的</strong> — 电商太复杂，信息展示类的网站最容易</li>
+<li><strong>做有人愿意付费的</strong> — 如果这个网站能帮别人赚钱，他就能赚钱</li>
+</ol>
+
+<p>最终，他决定做一个<strong>本地生活服务黄页</strong>。简单说，就是把所在城市的好吃好玩、家政维修、教育培训等信息整理到一个网站上，方便大家查找。</p>
+
+<p>这个想法的好处是：</p>
+<ul>
+<li><strong>内容他自己就能收集</strong> — 不需要什么专业知识</li>
+<li><strong>本地商家愿意付费</strong> — 花几百块就能多一个宣传渠道</li>
+<li><strong>技术门槛低</strong> — 就是一个展示信息的网站，没有复杂的交易功能</li>
+</ul>
+
+<p>方向定了，接下来就是动手。</p>
+
+<h2 id="building-with-ai">用AI建站：不让代码成为拦路虎</h2>
+
+<p>小张完全不会写代码，但他会用ChatGPT和Claude。他的工作流程是这样的：</p>
+
+<p><strong>第一步：让AI帮他规划网站结构</strong></p>
+
+<p>他打开ChatGPT，输入了这样一个提示：</p>
+
+<pre><code class="language-text" data-language="Prompt">我想做一个本地生活服务黄页网站，面向我所在的城市（三线城市）。
+网站包含以下页面：
+1. 首页 — 展示推荐商家和分类导航
+2. 分类页面 — 餐饮、家政、教育、维修等分类
+3. 商家详情页 — 展示商家信息、电话、地址、图片
+4. 关于我们 — 简单的介绍页面
+
+我不懂编程，请帮我：
+1. 先用最简单的HTML+CSS做一个首页布局给我看看
+2. 告诉我需要用哪些工具
+3. 每步告诉我该做什么，不要一次给太多信息
+</code></pre>
+
+<p><strong>第二步：让AI生成HTML代码</strong></p>
+
+<p>ChatGPT很快就生成了一份完整的HTML文件。小张只需要复制粘贴，保存成一个.html文件，双击就能在浏览器打开。</p>
+
+<pre><code class="language-text" data-language="Prompt">这个首页不错，但我想修改几个地方：
+1. 把颜色改成蓝色系（现在是大红色，不好看）
+2. 在顶部加一个搜索框
+3. 商家卡片改成三列并排显示
+4. 添加一个"提交商家"的按钮，方便商家自己报名
+
+请直接给我完整的HTML代码，我直接替换。
+</code></pre>
+
+<p>就这样，一个问一个改，来来回回大概20多轮对话。每次小张只提一个具体的修改要求，AI就给他更新后的代码。他不懂代码没关系，AI全帮他写好了。</p>
+
+<p><strong>第三步：把网站变好看</strong></p>
+
+<p>刚开始的页面很丑，就是白底黑字加几个蓝色按钮。小张又去问AI：</p>
+
+<pre><code class="language-text" data-language="Prompt">现在的页面功能有了，但太丑了。请帮我美化一下：
+1. 使用圆角卡片设计
+2. 加一些阴影效果
+3. 导航栏固定在最上面
+4. 整体感觉要像大众点评那种风格
+5. 手机上看也要正常显示
+
+请给我完整的HTML代码。
+</code></pre>
+
+<p>AI重新生成了一个漂亮得多的版本。小张说，那一刻他特别有成就感——明明一行代码都没写，但做出了一个像模像样的网站。</p>
+
+<h2 id="launching">上线：不花一分钱部署到网上</h2>
+
+<p>网站做好了，但怎么让别人能访问呢？小张完全不懂什么是服务器、域名这些东西。没关系，继续问AI。</p>
+
+<p>AI推荐他使用<strong>Vercel</strong>——一个免费托管网站的平台。整个上线过程只有三步：</p>
+
+<ol>
+<li>注册一个GitHub账号（免费的）</li>
+<li>把网站文件上传到GitHub仓库</li>
+<li>在Vercel上导入这个仓库，点一下"Deploy"</li>
+</ol>
+
+<p>整个过程用了不到30分钟。网站就有了一个类似 <code>xxx.vercel.app</code> 的网址。小张把这个链接发到朋友圈，他的网站正式上线了。</p>
+
+<div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 my-6">
+<p class="text-sm text-gray-600 dark:text-gray-400"><strong>小贴士：</strong> Vercel是完全免费的，不需要绑定银行卡。对于不会编程的新手来说，这是目前最简单的网站部署方式。我们有一篇专门的教程讲如何用Vercel部署，可以配合本文一起看。</p>
+</div>
+
+<h2 id="making-money">开始赚钱：从0到第一笔收入</h2>
+
+<p>网站上线了，但没人知道怎么办？小张的策略很简单——<strong>线下推广</strong>。</p>
+
+<p>他先把自己所在城市的美食商家列了一个清单，大概50家。然后在网站上给每家都创建了一个页面，包含店铺名称、地址、电话，还从大众点评上找了一些评价放上去。</p>
+
+<p>然后，他去这些店里吃饭，吃完跟老板说：</p>
+
+<blockquote>
+"老板，我有个本地生活网站，上面已经有你们店的页面了。我可以帮您优化一下，放上更漂亮的图片和详细的介绍。每个月只需要299块钱，还能帮您在朋友圈推广。"
+</blockquote>
+
+<p>10个老板里，有2个感兴趣。第一个月，他成功谈下了<strong>3个商家</strong>。每个收费299元/月，而且他承诺如果第一个月没有效果可以退款。</p>
+
+<p>这3个商家，一个月给他带来了<strong>897元的收入</strong>。虽然没有月入3000，但已经让他看到了希望。</p>
+
+<p>第二个月，他又谈下了5个商家，同时之前3个商家有2个续费了。加上帮两个商家做了简单的页面优化额外收了500块，这个月总收入达到了<strong>2700元</strong>。</p>
+
+<p>第三个月，他做了一个关键动作——让满意的商家帮他介绍。通过老客户推荐，他又拿到了4个新客户。月收入正式突破了<strong>3000元</strong>。</p>
+
+<h2 id="numbers">一个月的数据：真实的数字</h2>
+
+<p>以下是网站上线一个月后的真实数据：</p>
+
+<ul>
+<li><strong>网站访问量：</strong> 约1200次（大部分来自朋友圈和线下扫码）</li>
+<li><strong>收录商家：</strong> 67家（其中付费8家）</li>
+<li><strong>月收入：</strong> 约2700元（第二个月的数据）</li>
+<li><strong>投入成本：</strong> 0元（所有工具都是免费的）</li>
+<li><strong>投入时间：</strong> 前两周每天3小时建站，之后每天1小时维护</li>
+</ul>
+
+<p>小张说，这点收入跟大牛比起来不算什么。但对于一个完全不会编程、没有任何投入的人来说，这个结果让他非常满意。</p>
+
+<h2 id="advice">给新手的建议：你也可以做到</h2>
+
+<p>小张的经历告诉我们，不懂编程也可以做网站赚钱。这里是他给新手的几点建议：</p>
+
+<ol>
+<li><strong>先想怎么赚钱，再想怎么做网站。</strong> 技术是最简单的部分，最难的是想清楚谁会为你的网站付费。先找需求，再做产品。</li>
+<li><strong>从本地做起。</strong> 不要一上来就想做全国甚至全球的生意。你所在的城市就有很多机会，只是没有人用互联网的方式去做。</li>
+<li><strong>别怕问AI。</strong> 遇到不会的问题，就问AI。不知道怎么描述需求？就问AI"我怎么跟你说清楚"。不知道怎么部署？就问AI"怎么免费把我的网站放到网上"。AI会一步一步教你。</li>
+<li><strong>不要追求完美。</strong> 小张的网站第一版很简陋，但这不妨碍他去推给商家。先上线，再优化。只要能用，就赶紧去验证能不能赚钱。</li>
+<li><strong>坚持下去。</strong> 第一个月可能只有几百块钱，但这已经是一个好的开始。小张说他的目标是半年后月入过万，我觉得他很有希望。</li>
+</ol>
+
+<div class="mt-10 p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<h3 class="font-bold text-gray-900 dark:text-white mb-2">💡 核心要点</h3>
+<p class="text-gray-600 dark:text-gray-400">小张的成功不是因为他会编程，而是因为他愿意尝试。AI时代，技术门槛被大幅降低了，真正重要的变成了你的想法和行动力。如果你也有一个做网站的想法，现在就开始，你比小张差不了多少。</p>
+</div>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/tutorials/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回实战教程</a>
+<a href="/pages/tutorials/fullstack-blog.html" class="text-indigo-500 hover:text-indigo-600">用Cursor + Claude构建全栈博客 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h2" data-target="story-beginning">故事开始</div>
+<div class="toc-item h2" data-target="picking-direction">选方向</div>
+<div class="toc-item h2" data-target="building-with-ai">用AI建站</div>
+<div class="toc-item h2" data-target="launching">上线</div>
+<div class="toc-item h2" data-target="making-money">开始赚钱</div>
+<div class="toc-item h2" data-target="numbers">一个月的数据</div>
+<div class="toc-item h2" data-target="advice">给新手的建议</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/tutorials/zero-to-site.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">不会代码怎么用AI搭网站？保姆级教程</a>
+<a href="/pages/tips/make-money-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">AI做网站怎么赚钱？5种变现方式</a>
+<a href="/pages/cases/non-coder-product.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">非程序员用AI做出了一款产品</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。从入门到精通，帮你充分利用AI工具提升开发效率。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">实战教程</a></li><li><a href="/pages/tips/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">技巧提升</a></li><li><a href="/pages/cases/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">经验分享</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">更新日志</a></li><li><a href="/pages/resources/privacy.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">隐私政策</a></li><li><a href="/pages/resources/glossary.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">术语表</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南. 保留所有权利.</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
