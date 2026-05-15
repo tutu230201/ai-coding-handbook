@@ -46,6 +46,15 @@ window.searchIndex = [
         readTime: "15分钟"
     },
     {
+        title: "从0到上线：用AI做网站 + 上传GitHub + Vercel部署 完整教程",
+        url: "/pages/getting-started/deploy-tutorial.html",
+        summary: "从打开浏览器开始，一步步教你用AI做出网站、上传到GitHub、用Vercel部署上线。每一步点哪里都写清楚了。",
+        category: "零基础起步",
+        tags: ["教程", "部署", "GitHub", "Vercel", "零基础"],
+        difficulty: "入门",
+        readTime: "20分钟"
+    },
+    {
         title: "Claude Code 完全指南",
         url: "/pages/tools/claude-code-guide.html",
         summary: "深度解读Claude Code的功能特性、使用技巧和最佳实践，帮你充分发挥这款AI编程助手的潜力。",

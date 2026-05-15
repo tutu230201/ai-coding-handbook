@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从0到上线：用AI做网站 + 上传GitHub + Vercel部署 完整教程 - AI编程指南</title>
+<meta name="description" content="从打开浏览器开始，一步步教你用AI做出网站、上传到GitHub、用Vercel部署上线。每一步点哪里都写清楚了。">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['"Noto Sans SC"','system-ui','-apple-system','sans-serif'],mono:['"JetBrains Mono"','"Fira Code"','monospace']}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/data/search-index.js"></script>
+<script src="/js/search.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+
+<div id="reading-progress"></div>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16">
+<a href="/" class="flex items-center space-x-2">
+<svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+<span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AI编程指南</span>
+</a>
+<div class="hidden md:flex items-center space-x-1">
+<a href="/pages/getting-started/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">工具评测</a>
+<a href="/pages/tutorials/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">实战教程</a>
+<a href="/pages/tips/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">技巧提升</a>
+<a href="/pages/cases/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">经验分享</a>
+<a href="/pages/resources/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">资源</a>
+</div>
+<div class="flex items-center space-x-2">
+<button id="search-btn" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+<button id="dark-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="dark-icon-sun hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+<svg class="dark-icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+</button>
+<button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div></div></div>
+<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"><div class="px-4 py-2 space-y-1">
+<a href="/pages/getting-started/" class="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-500 bg-gray-100 dark:bg-gray-800">新手入门</a>
+<a href="/pages/tools/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">工具评测</a>
+<a href="/pages/tutorials/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">实战教程</a>
+<a href="/pages/tips/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">技巧提升</a>
+<a href="/pages/cases/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">经验分享</a>
+<a href="/pages/resources/" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">资源</a>
+</div></div>
+</nav>
+
+<!-- Search Modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm items-start justify-center pt-[15vh]">
+<div class="w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-700 px-4">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input id="search-input" type="text" class="w-full px-3 py-4 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="搜索文章标题、关键词..." autocomplete="off">
+<button id="search-close" class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<div id="search-results" class="max-h-[60vh] overflow-y-auto"><div class="p-8 text-center text-gray-400"><svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>输入关键词搜索文章...</p></div></div></div></div>
+
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500 dark:text-gray-400">
+<a href="/" class="hover:text-indigo-500">首页</a> &gt; <a href="/pages/getting-started/" class="hover:text-indigo-500">新手入门</a> &gt; 从0到上线完整部署教程
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+
+<article class="lg:w-2/3">
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">从0到上线：用AI做网站 + 上传GitHub + Vercel部署 完整教程</h1>
+<div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+<span>📅 2026-05-15</span>
+<span>⏱ 20分钟</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400">入门</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/50 text-blue-600">教程</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 dark:bg-green-900/50 text-green-600">部署</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-purple-50 dark:bg-purple-900/50 text-purple-600">GitHub</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600">Vercel</span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-orange-50 dark:bg-orange-900/50 text-orange-600">零基础</span>
+</div>
+</div>
+
+<div class="article-content max-w-none">
+
+<div class="p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 mb-8">
+<p class="text-gray-700 dark:text-gray-300 font-medium">这篇教程写给完全零基础的你。你不需要知道什么是GitHub，不需要用过终端，甚至不需要知道"部署"是什么意思。只要你会用浏览器、会打字，跟着这篇教程一步一步来，你就能拥有一个在互联网上真正能访问的网站。</p>
+</div>
+
+<h2 id="before-start">在开始之前</h2>
+
+<p>先花一分钟搞清楚我们要做什么。读完这篇教程，你将完成这几件事：</p>
+
+<ol>
+<li><strong>用AI做一个网站</strong> — 通过和AI对话，让AI帮你生成一个完整的网页</li>
+<li><strong>上传到GitHub</strong> — 把你的网站文件存放在一个叫GitHub的地方（可以理解为"网上的文件夹"）</li>
+<li><strong>用Vercel部署上线</strong> — 通过Vercel把你的网站发布到互联网上，得到一个可以分享给任何人的链接</li>
+</ol>
+
+<p>整个过程完全免费，不需要写一行代码，不需要懂任何编程知识。</p>
+
+<h3>你需要准备什么？</h3>
+
+<ul>
+<li><strong>一台能上网的电脑</strong> — Windows或Mac都可以</li>
+<li><strong>一个浏览器</strong> — 推荐用Chrome（谷歌浏览器），Edge或Safari也可以</li>
+<li><strong>一个邮箱地址</strong> — 用来注册账号，QQ邮箱、163邮箱、Gmail都行</li>
+</ul>
+
+<p>全部准备好之后，我们开始。</p>
+
+<h2 id="step1-build">第一步：用AI做出你的网站</h2>
+
+<p>在把网站部署上线之前，我们首先需要有一个网站文件。这个文件不用你自己写代码，让AI来帮你写。</p>
+
+<h3>1.1 打开AI工具</h3>
+
+<p>打开你的浏览器，访问以下任意一个网站：</p>
+
+<ul>
+<li><strong>ChatGPT</strong> — 在地址栏输入 chat.openai.com 并按回车</li>
+<li><strong>Claude</strong> — 在地址栏输入 claude.ai 并按回车</li>
+</ul>
+
+<p>如果还没注册，用你的邮箱注册一个账号。这两个工具都提供免费套餐，够用了。</p>
+
+<div class="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-900/50 my-6">
+<p class="text-sm text-blue-700 dark:text-blue-300"><strong>什么是浏览器地址栏？</strong> 就是浏览器最上面那条长条框，里面通常显示着"www.baidu.com"或"www.google.com"之类的文字。点击它，输入网址，按回车。</p>
+</div>
+
+<h3>1.2 把这段话复制给AI</h3>
+
+<p>进入ChatGPT或Claude的对话界面后，你会看到一个输入框，底部写着"Send a message..."或"输入..."。复制下面这段文字，粘贴进去，按回车发送：</p>
+
+<pre><code class="language-text" data-language="Prompt">请帮我生成一个个人简历网页的完整HTML代码。要求：
+1. 风格简洁现代
+2. 包含个人信息、工作经历、项目展示、联系方式
+3. 使用深色和浅色两种配色，有一个切换按钮
+4. 响应式设计，手机也能看
+5. 所有代码放在一个HTML文件中
+
+请直接给我完整的HTML代码，我复制保存就能用。
+</code></pre>
+
+<p>等几秒钟，AI就会回复一大段代码。你不需要看懂这些代码，只需要做下面一步。</p>
+
+<h3>1.3 把代码保存成HTML文件</h3>
+
+<p>AI回复之后，你要做的是把这段代码"拿出来"保存成一个文件。具体步骤：</p>
+
+<p><strong>第一步：全选并复制代码</strong></p>
+<ol>
+<li>把鼠标移到AI回复的代码框里</li>
+<li>如果有"Copy"或"复制"按钮，直接点击它</li>
+<li>如果没有复制按钮，用鼠标从代码最开头按住左键拖到最末尾，选中全部代码</li>
+<li>按键盘上的 <code>Ctrl + C</code>（Mac用户按 <code>Command + C</code>）复制</li>
+<li>或者右键点击选中的文字 → 选择"复制"</li>
+</ol>
+
+<p><strong>第二步：打开记事本</strong></p>
+<ol>
+<li>Windows用户：点击屏幕左下角的"开始"按钮 → 搜索"记事本" → 点击打开</li>
+<li>Mac用户：打开"启动台" → 搜索"文本编辑" → 打开</li>
+</ol>
+
+<p><strong>第三步：粘贴并保存</strong></p>
+<ol>
+<li>在记事本里按 <code>Ctrl + V</code>（Mac按 <code>Command + V</code>），把代码粘贴进去</li>
+<li>点击菜单栏的"文件" → "另存为"（或按 <code>Ctrl + S</code>）</li>
+<li>在弹出的窗口里：</li>
+<li style="list-style: none; margin-left: 1em;">a. 在"文件名"那里输入 <code>index.html</code></li>
+<li style="list-style: none; margin-left: 1em;">b. 在"保存类型"那里选择"所有文件 (.)"（这一步非常关键！）</li>
+<li style="list-style: none; margin-left: 1em;">c. "编码"选择 UTF-8</li>
+<li style="list-style: none; margin-left: 1em;">d. 选择一个好找的位置，比如"桌面"</li>
+<li style="list-style: none; margin-left: 1em;">e. 点击"保存"</li>
+</ol>
+
+<div class="p-5 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-900/50 my-6">
+<p class="text-sm text-yellow-700 dark:text-yellow-300"><strong>千万注意：</strong> 很多人第一次保存的时候，文件名看起来是 index.html，实际上却是 index.html.txt。这是因为Windows默认隐藏了文件后缀名。保存后，如果文件图标是一个浏览器图标（而不是记事本图标），就说明保存对了。如果还是记事本图标，说明后缀名不对，重新保存一次，记得选"所有文件"。</p>
+</div>
+
+<p><strong>第四步：打开看看效果</strong></p>
+<p>在桌面上找到你刚才保存的 <code>index.html</code> 文件，双击它。你的浏览器会自动打开，显示出你的人生第一个网站！</p>
+
+<p>如果你有VSCode（一款免费的代码编辑器），也可以用VSCode来保存文件，操作更简单：打开VSCode → 新建文件 → 粘贴代码 → 按 <code>Ctrl + S</code> → 文件名输入 <code>index.html</code> → 保存。</p>
+
+<h2 id="step2-github-account">第二步：创建GitHub账号</h2>
+
+<p>现在你的网站还在你自己的电脑上。要让别人也能访问，我们需要把它放到互联网上。第一步是注册一个GitHub账号。</p>
+
+<p><strong>GitHub是什么？</strong> 你可以把它理解成一个"存放在云端的文件夹"，你可以把你的文件放上去，随时查看和管理。全世界很多程序员都用它来存放代码。它完全免费。</p>
+
+<h3>2.1 打开GitHub网站</h3>
+
+<p>在浏览器地址栏输入 github.com，按回车。</p>
+
+<h3>2.2 点击注册</h3>
+
+<p>在页面右上角，你会看到一个绿色的"Sign up"按钮，点击它。</p>
+
+<h3>2.3 填写注册信息</h3>
+
+<p>你会看到一个注册表单，依次填写：</p>
+
+<ol>
+<li><strong>Email（邮箱地址）</strong> — 输入你的邮箱，比如 example@qq.com</li>
+<li>点击绿色的"Continue"按钮</li>
+<li><strong>Password（密码）</strong> — 设置一个密码，至少8位，建议包含字母和数字</li>
+<li>点击"Continue"</li>
+<li><strong>Username（用户名）</strong> — 给自己取一个名字，比如你的英文名或拼音，如果被占了可以加几个数字</li>
+<li>点击"Continue"</li>
+<li><strong>验证题</strong> — GitHub会出一道简单的拼图题，确认你不是机器人，按提示操作就行</li>
+<li>点击"Create account"</li>
+</ol>
+
+<h3>2.4 验证邮箱</h3>
+
+<p>注册完成后，GitHub会给你注册的邮箱发一封验证邮件。去你的邮箱找到这封邮件（如果收件箱里没有，看看垃圾箱），点击邮件中的"Verify email address"按钮。</p>
+
+<h3>2.5 选择套餐</h3>
+
+<p>验证成功后，GitHub会问你选择什么套餐。选择"Free"（免费版），不需要输入任何支付信息。按引导完成设置即可。</p>
+
+<p>现在你已经拥有了一个GitHub账号！</p>
+
+<h2 id="step3-create-repo">第三步：在GitHub上创建仓库</h2>
+
+<p>有了账号之后，你需要创建一个"仓库"来存放你的网站文件。"仓库"可以理解成一个文件夹。</p>
+
+<h3>3.1 开始创建仓库</h3>
+
+<p>登录GitHub后，你会看到页面上方有一个加号图标"+"。点击它，在弹出的菜单中选择"New repository"。</p>
+
+<div class="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-900/50 my-6">
+<p class="text-sm text-blue-700 dark:text-blue-300"><strong>小提示：</strong> 你也可以直接在浏览器地址栏输入 github.com/new，按回车，也会直接跳转到创建仓库页面。</p>
+</div>
+
+<h3>3.2 填写仓库信息</h3>
+
+<p>在创建仓库页面，你需要填写以下内容：</p>
+
+<ol>
+<li><strong>Repository name（仓库名称）</strong> — 输入 <code>my-website</code>（你也可以自己取一个名字，比如 <code>my-first-site</code>、<code>personal-website</code>，都可以）</li>
+<li><strong>Description（描述）</strong> — 可以不填，也可以写一句介绍，比如"我的第一个网站"</li>
+<li><strong>Public / Private</strong> — 一定要选择"Public"（公开）。选Private的话，Vercel部署会有问题。</li>
+<li><strong>Initialize this repository with</strong> — <strong>不要勾选</strong> "Add a README file"，也不要选 ".gitignore" 或 "license"。保持默认，全部不勾选。</li>
+</ol>
+
+<h3>3.3 点击创建</h3>
+
+<p>检查无误后，点击页面底部绿色的"Create repository"按钮。</p>
+
+<p>现在你被带到一个新的页面。这个页面上有很多英文字母和一些看起来像代码的命令，别紧张，往下看。</p>
+
+<h2 id="step4-upload-files">第四步：上传你的网站文件</h2>
+
+<p>这一步是最容易让新手懵圈的。很多人看到页面上那些命令就慌了。别怕，你完全不需要那些命令。我们用一个更简单的方法——直接拖拽上传。</p>
+
+<h3>4.1 找到上传入口</h3>
+
+<p>在你刚创建的仓库页面中，注意看中间区域。有两种方式可以上传文件：</p>
+
+<p><strong>方式一（推荐）：</strong> 页面中应该有一行文字"…or create a new repository on the command line"，在这行文字的下方，有一个蓝色的链接文字"uploading an existing file"。点击这个"uploading an existing file"链接。</p>
+
+<p><strong>方式二：</strong> 如果没找到方式一，就找页面中间靠右的一个绿色按钮"Add file"。点击它 → 在弹出菜单中选择"Upload files"。</p>
+
+<h3>4.2 上传文件</h3>
+
+<p>点击上传之后，你会看到一个文件上传页面。现在操作非常简单：</p>
+
+<ol>
+<li>打开你电脑上存放 <code>index.html</code> 的文件夹（比如桌面）</li>
+<li>用鼠标按住 <code>index.html</code> 文件</li>
+<li>把它拖到浏览器窗口中，松开鼠标</li>
+<li>你会看到文件出现在页面中，显示为一个蓝色标签，写着"index.html"</li>
+</ol>
+
+<p>如果你不想用拖拽，也可以点击页面中的"choose your files"链接，然后在弹出的文件选择窗口中找到 <code>index.html</code>，双击或点击"打开"。</p>
+
+<div class="p-5 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-900/50 my-6">
+<p class="text-sm text-yellow-700 dark:text-yellow-300"><strong>上传之后文件没有出现？</strong> 确认你的文件名是 index.html（不是 index.html.txt）。如果文件图标是记事本图标，说明你之前保存时没选对格式。回到第一步重新保存一次。</p>
+</div>
+
+<h3>4.3 提交文件</h3>
+
+<p>文件上传之后，把页面往下滚动一点，你会看到一个"Commit changes"的区域：</p>
+
+<ol>
+<li>在第一个输入框里，输入提交信息：<code>第一次提交 - 我的网站</code></li>
+<li>下面有一个"Commit directly to the main branch"的选项，保持它被选中（默认就是选中的）</li>
+<li>点击绿色的"Commit changes"按钮</li>
+</ol>
+
+<h3>4.4 检查上传结果</h3>
+
+<p>点击提交之后，页面会自动刷新。你会看到你的仓库里多了一个文件——<code>index.html</code>。点击这个文件名，可以查看文件的内容，确认代码正确。</p>
+
+<p>恭喜！你的网站文件已经成功上传到GitHub了。现在它安全地存放在云端，但是别人还不能直接访问它。接下来我们就用Vercel来让它上线。</p>
+
+<h2 id="step5-vercel-signup">第五步：注册Vercel</h2>
+
+<p>Vercel是一个部署平台，它的作用就是把你在GitHub上的网站文件"发布"到互联网上，让任何人都能通过链接访问。</p>
+
+<h3>5.1 打开Vercel网站</h3>
+
+<p>在浏览器中打开一个新的标签页，输入 vercel.com，按回车。</p>
+
+<h3>5.2 开始注册</h3>
+
+<p>在Vercel首页的右上角，点击"Sign Up"按钮。</p>
+
+<h3>5.3 选择用GitHub登录</h3>
+
+<p>你会看到几个注册选项：</p>
+<ul>
+<li>"Continue with GitHub" — 选择这个</li>
+<li>"Continue with GitLab" — 不要选这个</li>
+<li>"Continue with Bitbucket" — 不要选这个</li>
+<li>"Continue with Email" — 也可以，但用GitHub最方便</li>
+</ul>
+
+<p>点击"Continue with GitHub"。</p>
+
+<h3>5.4 授权Vercel</h3>
+
+<p>点击之后，浏览器会跳转到GitHub的授权页面。这个页面在问你是否允许Vercel访问你的GitHub账号。操作很简单：</p>
+
+<ol>
+<li>如果页面问你要授权哪些仓库，选择"All repositories"（所有仓库）或只选择你刚创建的"my-website"</li>
+<li>点击绿色的"Install"或"Authorize vercel"按钮</li>
+</ol>
+
+<h3>5.5 完成注册</h3>
+
+<p>授权完成后，你会自动跳转回Vercel网站，并且已经登录成功了。现在你会看到Vercel的管理后台（Dashboard）。</p>
+
+<div class="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-900/50 my-6">
+<p class="text-sm text-blue-700 dark:text-blue-300"><strong>不需要手机验证？</strong> 对，因为你是用GitHub账号登录的，GitHub已经验证过你的身份了，所以Vercel不需要你再注册一次。</p>
+</div>
+
+<h2 id="step6-deploy">第六步：用Vercel部署你的网站</h2>
+
+<p>这是最关键的一步。做完这一步，你的网站就正式上线了！</p>
+
+<h3>6.1 添加新项目</h3>
+
+<p>在Vercel的Dashboard页面中：</p>
+
+<ol>
+<li>找到"Add New"按钮（通常是深蓝色或灰色的，在页面右上角或中间偏上位置）</li>
+<li>点击它 → 在弹出的菜单中选择"Project"</li>
+</ol>
+
+<h3>6.2 导入你的GitHub仓库</h3>
+
+<p>接下来Vercel会显示你的GitHub仓库列表：</p>
+
+<ol>
+<li>在列表中找到你刚才创建的"my-website"（也可能显示为你的用户名/my-website）</li>
+<li>点击仓库右侧的"Import"按钮</li>
+</ol>
+
+<p>如果列表中没有出现"my-website"：</p>
+<ul>
+<li>检查一下你是否在创建仓库时选了"Private"（私有），如果选了，需要在Vercel中调整权限</li>
+<li>点击"Add GitHub App"或"Configure GitHub App"来添加仓库权限</li>
+<li>或者重新创建一个Public的仓库</li>
+</ul>
+
+<h3>6.3 配置项目</h3>
+
+<p>点击"Import"之后，你会进入"Configure Project"配置页面。这里有很多设置项，<strong>但你什么都不用改</strong>：</p>
+
+<ul>
+<li><strong>Framework Preset（框架预设）</strong> — 保持默认的"Other"（不要选Next.js、React等）</li>
+<li><strong>Root Directory（根目录）</strong> — 留空</li>
+<li><strong>Build Command（构建命令）</strong> — 留空</li>
+<li><strong>Output Directory（输出目录）</strong> — 留空</li>
+<li><strong>Environment Variables（环境变量）</strong> — 不需要添加</li>
+</ul>
+
+<div class="p-5 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900/50 my-6">
+<p class="text-sm text-red-700 dark:text-red-300"><strong>最容易出错的地方：</strong> Framework Preset一定不要选错。如果你选了"Next.js"或"React"，部署会报错，因为我们的网站只是一个简单的HTML文件，不需要任何框架。保持"Other"就对了。</p>
+</div>
+
+<h3>6.4 点击部署</h3>
+
+<p>把页面往下滚动，找到底部的一个大大的按钮——写着"Deploy"（部署）。点击它。</p>
+
+<h3>6.5 等待部署完成</h3>
+
+<p>点击"Deploy"之后，你会进入一个等待页面。Vercel正在自动构建和部署你的网站。你会看到一些日志文字在滚动——不用管它们，等着就行。</p>
+
+<p>这个过程通常需要30秒到1分钟。你可以看到进度条在推进。</p>
+
+<h3>6.6 部署成功！</h3>
+
+<p>当部署完成时，你会看到：</p>
+
+<ul>
+<li>页面上出现彩色的礼花/彩带动画效果（Confetti），恭喜你！</li>
+<li>一个大大的"Congratulations!"标题</li>
+<li>下面显示一个URL地址，类似：<code>my-website.vercel.app</code></li>
+</ul>
+
+<p>这个URL就是你网站的地址！点击它，你的网站就在新标签页中打开了——现在它是一个真正的、任何人都能访问的网站了！</p>
+
+<div class="p-5 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-900/50 my-6">
+<p class="text-sm text-green-700 dark:text-green-300"><strong>把链接发给任何人！</strong> 现在你可以把这个URL复制下来，发给你的家人、朋友。他们不管用手机还是电脑，打开这个链接就能看到你的网站。你真正做到了从0到上线！</p>
+</div>
+
+<h2 id="step7-update">第七步：以后怎么更新网站</h2>
+
+<p>网站上线之后，你肯定想改内容、加功能。怎么更新呢？超简单。</p>
+
+<h3>7.1 修改你的网站</h3>
+
+<ol>
+<li>用AI重新生成你想要的新代码（告诉AI"帮我修改xxx，增加yyy"）</li>
+<li>把新的代码复制、保存为 index.html（覆盖旧的就行）</li>
+</ol>
+
+<h3>7.2 上传新版本到GitHub</h3>
+
+<ol>
+<li>打开 github.com/你的用户名/my-website</li>
+<li>你会看到仓库里的 index.html 文件，点击它</li>
+<li>在文件内容页面的右上角，有一个垃圾桶图标（删除按钮），点击它</li>
+<li>页面会问你是否确认删除，输入提交信息 "删除旧版本"</li>
+<li>点击绿色的"Commit changes"按钮</li>
+<li>回到仓库主页，再次点击"Add file" → "Upload files"</li>
+<li>把新的 index.html 拖进去</li>
+<li>输入提交信息 "更新网站内容"</li>
+<li>点击"Commit changes"</li>
+</ol>
+
+<h3>7.3 Vercel自动更新</h3>
+
+<p>最棒的地方在这里：<strong>Vercel会自动检测到GitHub的变化，然后自动重新部署！</strong></p>
+
+<p>你不需要再操作Vercel了。等1-2分钟，刷新你的网站，就能看到最新的内容了。</p>
+
+<div class="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-900/50 my-6">
+<p class="text-sm text-blue-700 dark:text-blue-300"><strong>贴心提示：</strong> 如果你想更省事，可以不删除旧文件，直接上传新文件覆盖。但在GitHub网页上，你需要先删除再上传。如果你想避免每次删除的麻烦，可以考虑学习使用GitHub Desktop这个软件，它可以让更新文件变得更简单（不过不在本篇教程范围内）。</p>
+</div>
+
+<h2 id="faq">常见问题</h2>
+
+<h3>Q: 页面显示404怎么办？</h3>
+<p>404表示文件没找到。最可能的原因是：你的index.html文件没有在仓库的根目录下，或者在保存时命名不对（比如保存成了index.html.txt）。检查一下你的GitHub仓库，确认index.html文件直接出现在仓库文件列表中，而不是在某个文件夹里面。如果不在根目录，删除后重新上传到根目录。</p>
+
+<h3>Q: Vercel部署报错怎么办？</h3>
+<p>部署报错最常见的原因是Framework Preset选错了。确保你在Configure Project页面中，Framework Preset选择的是"Other"，而不是"Next.js"或"React"等框架。如果还是报错，可以检查index.html文件内容是否完整，有没有被截断。</p>
+
+<h3>Q: 可以绑定自己的域名吗？</h3>
+<p>可以。在Vercel的项目页面中，点击顶部的"Settings"标签 → 左侧菜单选"Domains" → 输入你的域名（比如 yourname.com）→ 点击"Add"按钮 → 按照Vercel的提示在你的域名管理后台添加DNS解析记录。Vercel的免费套餐支持绑定自定义域名。</p>
+
+<h3>Q: 这个收费吗？</h3>
+<p>GitHub的免费套餐够你用。Vercel的免费套餐（Hobby计划）也完全够用，每月有100GB的流量和100小时的构建时长，对于个人网站来说绰绰有余。不需要绑定信用卡。</p>
+
+<h3>Q: 我的网站访问速度慢怎么办？</h3>
+<p>Vercel的服务器在国外，国内访问速度可能不太理想。如果你的目标用户主要在国内，可以考虑使用国内的云服务商，比如阿里云的OSS静态网站托管或腾讯云的静态网站托管。操作逻辑类似，但设置界面不同。</p>
+
+<h3>Q: 我想添加更多页面怎么办？</h3>
+<p>让AI帮你生成多个HTML文件，比如 about.html、contact.html、portfolio.html。然后把这些文件一起上传到GitHub仓库的根目录。Vercel会自动部署所有文件。在网页中通过链接（如 &lt;a href="about.html"&gt;关于我&lt;/a&gt;）来相互跳转。</p>
+
+<h3>Q: 我可以把图片放在网站上吗？</h3>
+<p>可以。把图片文件和HTML文件放在一起上传到GitHub仓库。在HTML中使用相对路径引用图片，比如 &lt;img src="my-photo.jpg"&gt;。注意图片不要太大，建议压缩后再上传。</p>
+
+<h2 id="summary">总结</h2>
+
+<div class="p-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50">
+<p class="text-gray-700 dark:text-gray-300 font-medium">你刚刚完成了人生中第一次从0到1的网站部署！用AI生成代码、用GitHub管理文件、用Vercel部署上线。整个过程不需要写一行代码，不需要懂任何编程知识。现在你有了一个属于自己的网站，任何人都可以通过链接访问它。</p>
+</div>
+
+<p>回顾一下你走过的路：</p>
+<ul>
+<li>和AI对话，让它帮你生成了一个网站</li>
+<li>注册了GitHub账号，学会了上传文件</li>
+<li>注册了Vercel，一键部署上线</li>
+<li>获得了一个可以分享的网站链接</li>
+</ul>
+
+<p>这只是一个开始。你的网站可以不断完善：加更多页面、换更漂亮的风格、添加图片和动画效果——所有这些都可以通过和AI对话来完成。每次修改完，按照第七步的方法更新到GitHub就行了。</p>
+
+<p>如果你感觉这篇教程对你有帮助，可以看看我们站上的其他文章，了解更多用AI做网站的技巧和思路。</p>
+
+<div class="mt-8 flex justify-between text-sm">
+<a href="/pages/getting-started/" class="text-indigo-500 hover:text-indigo-600">&larr; 返回新手入门</a>
+<a href="/pages/tutorials/build-money-site.html" class="text-indigo-500 hover:text-indigo-600">看别人怎么用网站赚钱 &rarr;</a>
+</div>
+</article>
+
+<aside class="lg:w-1/3">
+<div class="toc-sidebar bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📑 目录</h3>
+<div id="toc">
+<div class="toc-item h2" data-target="before-start">在开始之前</div>
+<div class="toc-item h2" data-target="step1-build">第一步：用AI做网站</div>
+<div class="toc-item h2" data-target="step2-github-account">第二步：创建GitHub账号</div>
+<div class="toc-item h2" data-target="step3-create-repo">第三步：创建仓库</div>
+<div class="toc-item h2" data-target="step4-upload-files">第四步：上传文件</div>
+<div class="toc-item h2" data-target="step5-vercel-signup">第五步：注册Vercel</div>
+<div class="toc-item h2" data-target="step6-deploy">第六步：用Vercel部署</div>
+<div class="toc-item h2" data-target="step7-update">第七步：更新网站</div>
+<div class="toc-item h2" data-target="faq">常见问题</div>
+<div class="toc-item h2" data-target="summary">总结</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<h3 class="font-bold text-gray-900 dark:text-white mb-4">📌 相关文章</h3>
+<div class="space-y-3">
+<a href="/pages/getting-started/zero-to-site.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">不会代码怎么用AI搭网站？保姆级7步教程</a>
+<a href="/pages/getting-started/what-is-ai-coding.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">AI能做网站吗？能做什么样的网站？</a>
+<a href="/pages/tips/make-money-guide.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">AI做网站怎么赚钱？5种变现方式</a>
+<a href="/pages/tutorials/build-money-site.html" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-500 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">零基础用AI一个月做了个网站</a>
+</div>
+</div>
+</aside>
+
+</div></div>
+
+<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2"><div class="flex items-center space-x-2 mb-4"><svg class="w-6 h-6 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="text-lg font-bold text-gray-900 dark:text-white">AI编程指南</span></div><p class="text-gray-500 dark:text-gray-400 text-sm">专注于AI编程攻略的中文内容站。从入门到精通，帮你充分利用AI工具提升开发效率。</p></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">快速导航</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/getting-started/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">新手入门</a></li><li><a href="/pages/tools/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">工具评测</a></li><li><a href="/pages/tutorials/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">实战教程</a></li><li><a href="/pages/tips/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">技巧提升</a></li><li><a href="/pages/cases/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">经验分享</a></li></ul></div>
+<div><h4 class="font-semibold text-gray-900 dark:text-white mb-4">关于</h4><ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400"><li><a href="/pages/resources/" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">关于本站</a></li><li><a href="/pages/resources/changelog.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">更新日志</a></li><li><a href="/pages/resources/privacy.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">隐私政策</a></li><li><a href="/pages/resources/glossary.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">术语表</a></li></ul></div></div>
+<div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-400"><p>&copy; 2026 AI编程指南. 保留所有权利.</p></div></div>
+</footer>
+<button id="back-to-top" class="hidden fixed bottom-8 right-8 p-3 rounded-full bg-indigo-500 text-white shadow-lg hover:bg-indigo-600 transition-all z-50"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
